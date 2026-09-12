@@ -1,0 +1,10 @@
+name: seqkit
+
+channels:
+  - bioconda
+  - conda-forge
+
+dependencies:
+  - seqkit
+  - pigz
+  - python

@@ -1,0 +1,16 @@
+name: r_batch
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - r-base
+  - r-compositions
+  - r-ggplot2
+  - r-dplyr
+  - r-readr
+  - r-ape
+  - r-vegan
+  - bioconductor-sva
+  - bioconductor-mmuphin

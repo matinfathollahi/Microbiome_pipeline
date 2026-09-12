@@ -1,0 +1,11 @@
+name: r_ancombc
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - r-base
+  - r-readr
+  - bioconductor-ancombc
+  - bioconductor-phyloseq

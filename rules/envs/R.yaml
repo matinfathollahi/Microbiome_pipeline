@@ -1,0 +1,23 @@
+name: R
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - r-base
+  - r-ggplot2
+  - r-readr
+  - r-dplyr
+  - r-tidyr
+  - r-vegan
+  - r-ggrepel
+  - r-patchwork
+  - r-pheatmap
+  - r-car
+  - r-openxlsx
+  - r-rmarkdown
+  - r-circlize
+  - r-metafor
+  - bioconductor-complexheatmap
+  - bioconductor-apeglm

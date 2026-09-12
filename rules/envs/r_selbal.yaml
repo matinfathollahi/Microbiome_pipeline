@@ -1,0 +1,14 @@
+name: r_selbal
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - r-base
+  - r-remotes
+  - r-devtools
+  - r-zcompositions
+  - r-ggplot2
+  - r-proc
+  - git

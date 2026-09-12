@@ -1,0 +1,7 @@
+name: compress
+
+channels:
+  - conda-forge
+
+dependencies:
+  - pigz

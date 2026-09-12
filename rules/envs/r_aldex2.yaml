@@ -1,0 +1,9 @@
+name: r_aldex2
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - r-base
+  - bioconductor-aldex2

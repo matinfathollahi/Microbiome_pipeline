@@ -1,0 +1,9 @@
+name: r_maaslin2
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - r-base
+  - bioconductor-maaslin2

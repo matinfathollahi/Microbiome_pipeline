@@ -1,0 +1,10 @@
+name: r_deseq2
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - r-base
+  - r-readr
+  - bioconductor-deseq2

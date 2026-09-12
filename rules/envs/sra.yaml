@@ -1,0 +1,12 @@
+
+name: sra
+
+channels:
+  - bioconda
+  - conda-forge
+
+dependencies:
+  - sra-tools
+  - pigz
+
+

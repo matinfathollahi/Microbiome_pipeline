@@ -1,0 +1,12 @@
+name: r_randomforest
+
+channels:
+  - conda-forge
+
+dependencies:
+  - r-base
+  - r-randomforest
+  - r-dplyr
+  - r-caret
+  - r-proc
+  - r-ggplot2

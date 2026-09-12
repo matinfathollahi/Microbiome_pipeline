@@ -1,0 +1,40 @@
+rule prepare_ml_dataset:
+
+    input:
+
+        table="results/batch_correction/corrected_table.tsv",
+
+        metadata="results/export/metadata.tsv"
+
+    output:
+
+        "results/machine_learning/dataset.tsv"
+
+    conda:
+
+        "envs/ml.yaml"
+
+    log:
+
+        "logs/ml/prepare_dataset.log"
+
+    benchmark:
+
+        "benchmark/ml/prepare_dataset.txt"
+
+    params:
+
+        label=config["machine_learning"]["label"]
+
+    shell:
+
+        """
+        mkdir -p results/machine_learning
+
+        python scripts/python/prepare_ml_dataset.py \
+            --table {input.table} \
+            --metadata {input.metadata} \
+            --label {params.label} \
+            --output {output} \
+            > {log} 2>&1
+        """

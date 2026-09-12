@@ -1,0 +1,466 @@
+#########################################
+# Project
+#########################################
+
+project: "Microbiome_MetaAnalysis"
+
+#########################################
+# Directories
+#########################################
+
+raw_data: "data/raw"
+sra_data: "data/sra"
+metadata: "metadata"
+results: "results"
+logs: "logs"
+temp: "data/tmp"
+
+#########################################
+# Resources
+#########################################
+
+threads: 8
+
+#########################################
+# Download SRA
+#########################################
+
+download:
+
+  sra_dir: "data/sra"
+
+  threads: 8
+
+#########################################
+# Convert FASTQ
+#########################################
+
+convert:
+
+  outdir: "data/raw"
+
+  tempdir: "data/tmp"
+
+  threads: 8
+
+#########################################
+# Compress
+#########################################
+
+compress:
+
+  threads: 8
+
+#########################################
+
+
+#####################################
+# DADA2
+#####################################
+
+dada2:
+
+  trim_left_f: 17
+
+  trim_left_r: 21
+
+  trunc_len_f: 240
+
+  trunc_len_r: 200
+
+  max_ee_f: 2
+
+  max_ee_r: 2
+
+  trunc_q: 2
+
+  chimera_method: consensus
+
+  pooling: independent
+
+  min_overlap: 20
+
+  threads: 8
+
+
+#########################################
+# Taxonomy
+#########################################
+
+taxonomy:
+
+  classifier: "database/silva-138-99-classifier.qza"
+
+  reads_per_batch: auto
+
+  n_jobs: 8
+
+  confidence: 0.7
+
+
+#########################################
+# Phylogeny
+#########################################
+
+phylogeny:
+
+  threads: 8
+
+#########################################
+# Diversity
+#########################################
+
+diversity:
+
+  sampling_depth: 10000
+
+  threads: 8
+
+
+#########################################
+# Beta Diversity
+#########################################
+beta:
+
+  permutations: 999
+
+  pairwise: true
+
+  metadata_column: "Group"
+
+  study_column: "Study"
+
+  reference_group: "Control"
+
+  case_group: "Disease"
+
+  min_samples_per_group: 5
+
+  min_studies: 3
+
+  seed: 2026
+
+
+#########################################
+# PERMDISP
+#########################################
+
+permdisp:
+
+  permutations: 999
+
+  metadata_column: "Group"
+
+  study_column: "Study"
+
+  reference_group: "Control"
+
+  case_group: "Disease"
+
+  min_samples_per_group: 5
+
+  min_studies: 3
+
+  seed: 2026
+
+  pairwise: true
+
+#########################################
+
+#########################################
+
+filtering:
+
+  min_count: 10
+
+  prevalence: 0.10
+
+
+
+#########################################
+
+permanova:
+
+  variable: Batch
+
+  permutations: 999
+
+
+#########################################
+
+
+variance_partition:
+
+  variables:
+
+    - Study
+
+    - Batch
+
+    - Group
+
+    - Age
+
+    - Sex
+
+    - Center
+
+#########################################
+
+
+confounding:
+
+
+
+  variables:
+
+    - Group
+
+    - Age
+
+    - Sex
+
+    - Center
+
+
+
+
+
+#########################################
+meta_analysis:
+
+  enabled: true
+
+  study_column: Study
+  sample_column: SampleID
+  group_column: Group
+
+  reference_group: Control
+  case_group: Disease
+
+  method: DESeq2
+
+  # Minimum number of eligible studies required
+  min_studies: 3
+
+  # Minimum number of samples from EACH group in a study
+  min_samples_per_group: 2
+
+  # Minimum total Control + Disease samples in a study
+  min_samples_per_study: 4
+
+#########################################
+
+machine_learning:
+
+  label: Group
+
+  # ستون مشخص‌کننده cohort / study
+  group_column: Study
+
+  train_fraction: 0.8
+  random_seed: 2026
+  stratify: true
+
+  scaling:
+    enabled: true
+    method: standard
+
+  metadata_columns:
+    - SampleID
+    - Group
+    - Study
+    - Age
+    - Sex
+
+
+  variance_filter:
+    threshold: 0.001
+
+  predictive_preprocessing:
+    zero_fraction: 0.5
+
+  boruta:
+    n_estimators: 1000
+    max_iter: 200
+    random_seed: 2026
+
+  elasticnet:
+    cv: 5
+    l1_ratio: 0.5
+    random_seed: 2026
+
+  random_forest:
+    trees: 1000
+    random_seed: 2026
+    top_features: 100
+
+  consensus:
+    min_methods: 2
+
+  nested_cv:
+
+    # outer folds are determined automatically
+    # from the number of studies
+    inner_folds: 5
+
+    random_seed: 2026
+
+  optuna:
+    trials: 100
+    timeout: 3600
+    random_seed: 2026
+
+
+deep_learning:
+
+  group_column: Study
+
+  inner_folds: 5
+  inner_trials: 100
+  random_seed: 2026
+
+  final_evaluation:
+    trials: 100
+    validation_fraction: 0.10
+    max_epochs: 200
+
+  visualization:
+    tsne_perplexity: 30
+    tsne_iterations: 1000
+    umap_neighbors: 15
+    umap_min_dist: 0.1
+
+  explainability:
+    background_size: 100
+    max_explain_samples: 200
+    ig_steps: 50
+    permutation_repeats: 5
+    permutation_max_features: 100
+    top_features: 30
+
+
+
+#########################################
+differential_abundance:
+
+  enabled: true
+
+  primary_method: ancombc2
+
+  sample_column: SampleID
+  study_column: Study
+  group_column: Group
+
+  reference_group: Control
+  case_group: Disease
+
+  min_samples_per_group: 5
+  min_studies: 3
+
+  prevalence: 0.10
+  alpha: 0.05
+
+  p_adjust_method: BH
+
+  threads: 4
+
+
+#########################################
+# Supplementary differential abundance
+
+supplementary_differential_abundance:
+
+  enabled: true
+
+  aldex2:
+    enabled: true
+    mc_samples: 128
+    fdr_method: BH
+
+  maaslin2:
+    enabled: true
+    normalization: TSS
+    transform: LOG
+    analysis_method: LM
+
+#########################################
+lefse:
+  class_column: Group
+  study_column: Study
+
+  reference_group: Control
+  case_group: Disease
+
+  min_samples_per_group: 5
+  min_studies: 3
+
+  normalization: 1000000
+  alpha: 0.05
+  lda_threshold: 2.0
+
+  consensus:
+    min_significant_studies: 2
+    min_direction_consistency: 0.80
+
+
+###########################################
+
+alpha_statistics:
+  study_column: Study
+  reference_group: Control
+  case_group: Disease
+
+  min_samples_per_group: 5
+  min_studies: 3
+
+  meta_method: REML
+
+
+
+#################################################
+
+selbal:
+
+  study_column: Study
+  group_column: Group
+
+  reference_group: Control
+  case_group: Disease
+
+  min_samples_per_group: 5
+  min_studies: 3
+
+  inner_folds: 5
+  inner_iterations: 10
+
+  max_features: 20
+
+  seed: 2026
+
+  zero_replacement: bayes
+  opt_criterion: 1se
+
+#########################################
+
+batch_correction:
+
+  enabled: true
+
+  method: mmuphin
+
+  batch_variable: Study
+
+  biological_variable: Group
+
+  visualize_before: true
+  visualize_after: true
+  validate_after_correction: true
+
+  predictive_sensitivity:
+    enabled: true
+    role: transductive_sensitivity
+    primary_analysis: false
+    uses_all_samples_for_harmonization: true
+
+

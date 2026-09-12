@@ -1,0 +1,20 @@
+name: ml
+
+channels:
+  - conda-forge
+  - bioconda
+
+dependencies:
+  - python=3.11
+  - pandas
+  - numpy
+  - scikit-learn
+  - joblib
+  - optuna
+  - xgboost
+  - lightgbm
+  - catboost
+  - pip
+
+  - pip:
+      - boruta

@@ -1,0 +1,19 @@
+name: deep_learning
+
+channels:
+  - pytorch
+  - conda-forge
+
+dependencies:
+  - python=3.11
+  - pytorch>=2.5
+  - numpy
+  - pandas
+  - scikit-learn
+  - optuna
+  - joblib
+  - tqdm
+  - matplotlib
+  - shap
+  - captum
+  - umap-learn
