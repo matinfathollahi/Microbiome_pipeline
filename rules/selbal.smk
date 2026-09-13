@@ -1,7 +1,5 @@
 rule selbal:
-
     input:
-
         table=
             "results/export/feature_table/feature-table.tsv",
 
@@ -9,7 +7,6 @@ rule selbal:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         summary=
             "results/selbal/analysis/selbal_loso_summary.tsv",
 
@@ -41,7 +38,6 @@ rule selbal:
             "results/selbal/analysis/LOSO_ROC.pdf"
 
     params:
-
         study_column=
             config["selbal"]["study_column"],
 
@@ -85,19 +81,15 @@ rule selbal:
             config["selbal"]["opt_criterion"]
 
     log:
-
         "logs/selbal/selbal_loso.log"
 
     benchmark:
-
         "benchmark/selbal/selbal_loso.txt"
 
     conda:
-
         "envs/r_selbal.yaml"
 
     shell:
-
         r"""
         set -euo pipefail
 

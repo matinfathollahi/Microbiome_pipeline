@@ -1,5 +1,4 @@
 rule variance_partition:
-
     input:
         table="results/batch_effect/feature_table_clr.tsv",
         metadata="results/export/metadata/sample_metadata.tsv"

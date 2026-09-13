@@ -1,5 +1,4 @@
 rule feature_table_summary:
-
     input:
         table="results/qiime2/dada2/feature_table.qza",
         metadata="metadata/sample_metadata.tsv"

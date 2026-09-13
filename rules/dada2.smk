@@ -1,5 +1,4 @@
 rule dada2:
-
     input:
         demux="results/qiime2/import/demux.qza"
 
@@ -36,7 +35,6 @@ rule dada2:
         r"""
         mkdir -p $(dirname {output.table})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

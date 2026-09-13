@@ -1,7 +1,5 @@
 rule permdisp_study_aware:
-
     input:
-
         distance=
             "results/export/beta/{metric}/distance-matrix.tsv",
 
@@ -9,7 +7,6 @@ rule permdisp_study_aware:
             "metadata/sample_metadata.tsv"
 
     output:
-
         per_study=
             "results/statistics/permdisp/{metric}_Per_Study.tsv",
 
@@ -20,7 +17,6 @@ rule permdisp_study_aware:
             "results/statistics/permdisp/{metric}_Study_Eligibility.tsv"
 
     params:
-
         study_column=
             config["permdisp"]["study_column"],
 
@@ -46,7 +42,6 @@ rule permdisp_study_aware:
             config["permdisp"]["seed"]
 
     wildcard_constraints:
-
         metric=(
             "bray_curtis|"
             "jaccard|"
@@ -55,19 +50,15 @@ rule permdisp_study_aware:
         )
 
     log:
-
         "logs/statistics/permdisp_{metric}_study_aware.log"
 
     benchmark:
-
         "benchmark/statistics/permdisp_{metric}_study_aware.txt"
 
     conda:
-
         "envs/r_batch.yaml"
 
     shell:
-
         r"""
         set -euo pipefail
 

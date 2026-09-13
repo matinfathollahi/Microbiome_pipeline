@@ -1,7 +1,5 @@
 rule reproducibility_report:
-
     input:
-
         config=
             "config/config.yaml",
 
@@ -21,7 +19,6 @@ rule reproducibility_report:
             "results/publication/publication_summary.json"
 
     output:
-
         summary=
             "results/reproducibility/reproducibility_summary.json",
 
@@ -47,23 +44,18 @@ rule reproducibility_report:
             "results/reproducibility/git_info.tsv"
 
     log:
-
         "logs/reproducibility/reproducibility.log"
 
     benchmark:
-
         "benchmark/reproducibility/reproducibility.txt"
 
     conda:
-
         "envs/python.yaml"
 
     shell:
-
         r"""
         mkdir -p results/reproducibility
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

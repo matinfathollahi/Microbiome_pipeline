@@ -18,6 +18,62 @@ META_TARGETS = (
 )
 
 
+DA_CFG = config.get("differential_abundance", {})
+DA_ENABLED = bool(DA_CFG.get("enabled", True))
+DA_PRIMARY_METHOD = DA_CFG.get("primary_method", "ancombc2")
+
+SUPP_DA_CFG = config.get("supplementary_differential_abundance", {})
+SUPP_DA_ENABLED = bool(SUPP_DA_CFG.get("enabled", True))
+ALDEX2_ENABLED = SUPP_DA_ENABLED and bool(
+    SUPP_DA_CFG.get("aldex2", {}).get("enabled", True)
+)
+MAASLIN2_ENABLED = SUPP_DA_ENABLED and bool(
+    SUPP_DA_CFG.get("maaslin2", {}).get("enabled", True)
+)
+
+ANCOMBC2_TARGETS = (
+    [
+        "results/ancombc2/all_results.tsv",
+        "results/ancombc2/significant_results.tsv",
+        "results/ancombc2/study_eligibility.tsv",
+        "results/ancombc2/analysis_summary.tsv",
+    ]
+    if DA_ENABLED and DA_PRIMARY_METHOD == "ancombc2"
+    else []
+)
+
+ALDEX2_TARGETS = (
+    [
+        "results/aldex2/group_results.tsv",
+        "results/aldex2/significant_results.tsv",
+        "results/aldex2/study_eligibility.tsv",
+        "results/aldex2/analysis_summary.tsv",
+    ]
+    if ALDEX2_ENABLED
+    else []
+)
+
+MAASLIN2_TARGETS = (
+    [
+        "results/maaslin2/group_results.tsv",
+        "results/maaslin2/group_significant_results.tsv",
+        "results/maaslin2/study_eligibility.tsv",
+        "results/maaslin2/analysis_summary.tsv",
+    ]
+    if MAASLIN2_ENABLED
+    else []
+)
+
+SUPPLEMENTARY_DA_COMPARISON_TARGETS = (
+    [
+        "results/supplementary_da/method_comparison.tsv",
+        "results/supplementary_da/primary_robustness.tsv",
+    ]
+    if SUPP_DA_ENABLED and DA_ENABLED
+    else []
+)
+
+
 PREDICTIVE_BATCH_SENSITIVITY_ENABLED = bool(
     config.get(
         "batch_correction",
@@ -224,8 +280,7 @@ rule all:
 
 
 
-        "results/supplementary_da/method_comparison.tsv",
-        "results/supplementary_da/primary_robustness.tsv",
+        SUPPLEMENTARY_DA_COMPARISON_TARGETS,
 
         "results/export/sequences",
         "results/export/tree",
@@ -239,28 +294,16 @@ rule all:
         "results/machine_learning/final/final_test_metrics.tsv",
         "results/export/metadata/sample_metadata.tsv",
 
-        "results/ancombc2/all_results.tsv",
-
-        "results/ancombc2/significant_results.tsv",
-
-        "results/ancombc2/study_eligibility.tsv",
-
-        "results/ancombc2/analysis_summary.tsv",
+        ANCOMBC2_TARGETS,
         PREDICTIVE_BATCH_SENSITIVITY_TARGETS,
 
         DL_BATCH_SENSITIVITY_TARGETS,
 
         # Supplementary differential abundance - ALDEx2
-        "results/aldex2/group_results.tsv",
-        "results/aldex2/significant_results.tsv",
-        "results/aldex2/study_eligibility.tsv",
-        "results/aldex2/analysis_summary.tsv",
+        ALDEX2_TARGETS,
 
         # Supplementary differential abundance - MaAsLin2
-        "results/maaslin2/group_results.tsv",
-        "results/maaslin2/group_significant_results.tsv",
-        "results/maaslin2/study_eligibility.tsv",
-        "results/maaslin2/analysis_summary.tsv",
+        MAASLIN2_TARGETS,
 
 
         "results/lefse/significant_taxa.tsv",

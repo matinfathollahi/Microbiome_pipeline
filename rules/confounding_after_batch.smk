@@ -1,5 +1,4 @@
 rule confounding_after_batch:
-
     input:
         metadata="results/export/metadata/sample_metadata.tsv"
 
@@ -23,7 +22,6 @@ rule confounding_after_batch:
         r"""
         mkdir -p {output}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

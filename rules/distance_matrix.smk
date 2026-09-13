@@ -1,5 +1,4 @@
 rule distance_matrix:
-
     input:
         table="results/batch_effect/feature_table_clr.tsv",
         tree="results/qiime2/phylogeny/rooted_tree.qza"

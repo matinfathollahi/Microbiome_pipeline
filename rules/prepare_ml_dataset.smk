@@ -1,5 +1,4 @@
 rule prepare_ml_dataset:
-
     input:
         table="results/export/feature_table/feature-table.tsv",
         metadata="results/export/metadata/sample_metadata.tsv"
@@ -27,7 +26,6 @@ rule prepare_ml_dataset:
         r"""
         mkdir -p $(dirname {output})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

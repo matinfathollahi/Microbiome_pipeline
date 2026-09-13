@@ -78,9 +78,7 @@ def validated_fastq_for_batch(wildcards):
 
 
 rule generate_manifest:
-
     input:
-
         preflight=
             "results/qc/preflight/preflight_validation.json",
 
@@ -88,20 +86,16 @@ rule generate_manifest:
             validated_fastq_for_batch
 
     output:
-
         manifest=
             "metadata/manifests/{batch}.csv"
 
     log:
-
         "logs/manifest/{batch}.log"
 
     conda:
-
         "envs/python.yaml"
 
     shell:
-
         r"""
         mkdir -p metadata/manifests
         mkdir -p $(dirname {log})

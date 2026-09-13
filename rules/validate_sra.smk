@@ -1,10 +1,9 @@
 rule validate_sra:
-
     input:
         sra="data/sra/{accession}/{accession}.sra"
 
     output:
-        ok="results/validation/{accession}.ok"
+        ok="results/validation/{accession}.sra.ok"
 
     log:
         "logs/validate_sra/{accession}.log"

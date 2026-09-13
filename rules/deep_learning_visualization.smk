@@ -1,7 +1,5 @@
 rule deep_learning_visualization:
-
     input:
-
         features=
             "results/deep_learning/data/train_features.tsv",
 
@@ -15,7 +13,6 @@ rule deep_learning_visualization:
             "results/deep_learning/nested_cv/fold_artifacts.tar.gz"
 
     output:
-
         summary=
             "results/deep_learning/visualization/visualization_summary.json",
 
@@ -23,7 +20,6 @@ rule deep_learning_visualization:
             "results/deep_learning/visualization/visualization_status.tsv"
 
     params:
-
         outdir=
             "results/deep_learning/visualization",
 
@@ -85,7 +81,6 @@ rule deep_learning_visualization:
         r"""
         mkdir -p {params.outdir}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

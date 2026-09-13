@@ -11,9 +11,7 @@
 
 
 rule compare_raw_vs_batch_corrected_dl:
-
     input:
-
         raw_metrics=
             "results/deep_learning/final/"
             "final_test_metrics.tsv",
@@ -47,7 +45,6 @@ rule compare_raw_vs_batch_corrected_dl:
             "explainability/consensus_importance.tsv"
 
     output:
-
         metrics=
             "results/deep_learning/comparison/"
             "final_metrics_comparison.tsv",
@@ -77,7 +74,6 @@ rule compare_raw_vs_batch_corrected_dl:
             "comparison_summary.json"
 
     params:
-
         outdir=
             "results/deep_learning/comparison",
 
@@ -91,24 +87,20 @@ rule compare_raw_vs_batch_corrected_dl:
             ]
 
     log:
-
         "logs/deep_learning/"
         "raw_vs_batch_corrected_comparison.log"
 
     benchmark:
-
         "benchmark/deep_learning/"
         "raw_vs_batch_corrected_comparison.txt"
 
     conda:
-
         "envs/deep_learning.yaml"
 
     shell:
         r"""
         mkdir -p "{params.outdir}"
         mkdir -p "$(dirname "{log}")"
-        mkdir -p "$(dirname "{benchmark}")"
 
         set -euo pipefail
 

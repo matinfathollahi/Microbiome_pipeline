@@ -1,14 +1,17 @@
 rule export_beta_distance_study_aware:
-
     input:
-        distance=lambda wildcards: (
-            f"results/qiime2/diversity/core_metrics/"
-            f"{wildcards.metric}_distance_matrix.qza"
-        )
+        core_metrics=
+            "results/qiime2/diversity/core_metrics"
 
     output:
         distance=
             "results/export/beta/{metric}/distance-matrix.tsv"
+
+    params:
+        distance=lambda wildcards, input: (
+            f"{input.core_metrics}/"
+            f"{wildcards.metric}_distance_matrix.qza"
+        )
 
     wildcard_constraints:
         metric=(
@@ -38,7 +41,7 @@ rule export_beta_distance_study_aware:
         trap 'rm -rf "$TMP"' EXIT
 
         qiime tools export \
-            --input-path "{input.distance}" \
+            --input-path "{params.distance}" \
             --output-path "$TMP" \
             > "{log}" 2>&1
 
@@ -54,7 +57,6 @@ rule export_beta_distance_study_aware:
 
 
 rule beta_permanova_study_aware:
-
     input:
         distance=
             "results/export/beta/{metric}/distance-matrix.tsv",

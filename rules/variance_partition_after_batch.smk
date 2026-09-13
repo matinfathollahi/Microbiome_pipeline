@@ -1,5 +1,4 @@
 rule variance_partition_after_batch:
-
     input:
         table="results/batch_correction/corrected/feature_table_corrected.tsv",
         metadata="results/export/metadata/sample_metadata.tsv"
@@ -23,7 +22,6 @@ rule variance_partition_after_batch:
         r"""
         mkdir -p {output}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

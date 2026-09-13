@@ -8,9 +8,7 @@
 
 
 rule ml_split_batch_corrected:
-
     input:
-
         dataset=
             "results/machine_learning_batch_corrected/"
             "dataset.tsv",
@@ -24,7 +22,6 @@ rule ml_split_batch_corrected:
             "test_samples.tsv"
 
     output:
-
         train=
             "results/machine_learning_batch_corrected/"
             "train.tsv",
@@ -34,16 +31,13 @@ rule ml_split_batch_corrected:
             "test.tsv"
 
     params:
-
         sample_column=
             "SampleID"
 
     conda:
-
         "envs/ml.yaml"
 
     log:
-
         "logs/machine_learning_batch_corrected/"
         "split.log"
 

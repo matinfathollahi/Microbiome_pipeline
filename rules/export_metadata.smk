@@ -1,5 +1,4 @@
 rule export_metadata:
-
     input:
         "metadata/sample_metadata.tsv"
 

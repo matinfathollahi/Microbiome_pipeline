@@ -1,5 +1,4 @@
 rule permanova:
-
     input:
         bray="results/batch_effect/distance/bray_distance.tsv",
         jaccard="results/batch_effect/distance/jaccard_distance.tsv",
@@ -10,6 +9,9 @@ rule permanova:
 
     output:
         directory("results/batch_effect/permanova")
+
+    params:
+        seed=config["permanova"]["seed"]
 
     log:
         "logs/batch_effect/permanova.log"
@@ -24,11 +26,11 @@ rule permanova:
         """
         mkdir -p {output}
 
-        {
-            Rscript scripts/R/permanova.R {input.bray} Bray {input.metadata} {output}
-            Rscript scripts/R/permanova.R {input.jaccard} Jaccard {input.metadata} {output}
-            Rscript scripts/R/permanova.R {input.aitchison} Aitchison {input.metadata} {output}
-            Rscript scripts/R/permanova.R {input.weighted} Weighted_UniFrac {input.metadata} {output}
-            Rscript scripts/R/permanova.R {input.unweighted} Unweighted_UniFrac {input.metadata} {output}
-        } > {log} 2>&1
+        {{
+            Rscript scripts/R/permanova.R {input.bray} Bray {input.metadata} {output} {params.seed}
+            Rscript scripts/R/permanova.R {input.jaccard} Jaccard {input.metadata} {output} {params.seed}
+            Rscript scripts/R/permanova.R {input.aitchison} Aitchison {input.metadata} {output} {params.seed}
+            Rscript scripts/R/permanova.R {input.weighted} Weighted_UniFrac {input.metadata} {output} {params.seed}
+            Rscript scripts/R/permanova.R {input.unweighted} Unweighted_UniFrac {input.metadata} {output} {params.seed}
+        }} > {log} 2>&1
         """

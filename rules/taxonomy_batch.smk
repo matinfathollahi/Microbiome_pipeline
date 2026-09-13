@@ -1,5 +1,4 @@
 rule taxonomy_batch:
-
     input:
         repseq=
             "results/qiime2/dada2/batches/{batch}/representative_sequences.qza",

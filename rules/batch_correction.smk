@@ -50,9 +50,7 @@ def get_batch_corrected_source(wildcards):
 ############################################################
 
 rule combat_batch_correction:
-
     input:
-
         table=
             "results/batch_effect/feature_table_clr.tsv",
 
@@ -60,13 +58,11 @@ rule combat_batch_correction:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         table=
             "results/batch_effect/corrected/"
             "combat/feature_table_corrected_clr.tsv"
 
     params:
-
         batch=
             config["batch_correction"]["batch_variable"],
 
@@ -74,25 +70,20 @@ rule combat_batch_correction:
             config["batch_correction"]["biological_variable"]
 
     log:
-
         "logs/batch_effect/combat_correction.log"
 
     benchmark:
-
         "benchmark/batch_effect/combat_correction.txt"
 
     conda:
-
         "envs/r_batch.yaml"
 
     shell:
-
         r"""
         set -euo pipefail
 
         mkdir -p "$(dirname "{output.table}")"
         mkdir -p "$(dirname "{log}")"
-        mkdir -p "$(dirname "{benchmark}")"
 
         Rscript scripts/R/combat_correction.R \
             "{input.table}" \
@@ -111,9 +102,7 @@ rule combat_batch_correction:
 ############################################################
 
 rule mmuphin_batch_correction:
-
     input:
-
         table=
             "results/filtering/feature_table_filtered.tsv",
 
@@ -121,7 +110,6 @@ rule mmuphin_batch_correction:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         abundance=
             "results/batch_effect/corrected/mmuphin/"
             "feature_table_adjusted_abundance.tsv",
@@ -135,7 +123,6 @@ rule mmuphin_batch_correction:
             "mmuphin_summary.tsv"
 
     params:
-
         batch=
             config["batch_correction"]["batch_variable"],
 
@@ -143,25 +130,20 @@ rule mmuphin_batch_correction:
             config["batch_correction"]["biological_variable"]
 
     log:
-
         "logs/batch_effect/mmuphin_correction.log"
 
     benchmark:
-
         "benchmark/batch_effect/mmuphin_correction.txt"
 
     conda:
-
         "envs/r_batch.yaml"
 
     shell:
-
         r"""
         set -euo pipefail
 
         mkdir -p results/batch_effect/corrected/mmuphin
         mkdir -p "$(dirname "{log}")"
-        mkdir -p "$(dirname "{benchmark}")"
 
         Rscript scripts/R/mmuphin_correction.R \
             "{input.table}" \
@@ -180,31 +162,24 @@ rule mmuphin_batch_correction:
 ############################################################
 
 rule mmuphin_zero_replacement:
-
     input:
-
         "results/batch_effect/corrected/mmuphin/"
         "feature_table_adjusted_abundance.tsv"
 
     output:
-
         "results/batch_effect/corrected/mmuphin/"
         "feature_table_adjusted_zero_replaced.tsv"
 
     log:
-
         "logs/batch_effect/mmuphin_zero_replacement.log"
 
     benchmark:
-
         "benchmark/batch_effect/mmuphin_zero_replacement.txt"
 
     conda:
-
         "envs/r_selbal.yaml"
 
     shell:
-
         r"""
         set -euo pipefail
 
@@ -220,31 +195,24 @@ rule mmuphin_zero_replacement:
 ############################################################
 
 rule mmuphin_clr_normalization:
-
     input:
-
         "results/batch_effect/corrected/mmuphin/"
         "feature_table_adjusted_zero_replaced.tsv"
 
     output:
-
         "results/batch_effect/corrected/mmuphin/"
         "feature_table_corrected_clr.tsv"
 
     log:
-
         "logs/batch_effect/mmuphin_clr.log"
 
     benchmark:
-
         "benchmark/batch_effect/mmuphin_clr.txt"
 
     conda:
-
         "envs/r_batch.yaml"
 
     shell:
-
         r"""
         set -euo pipefail
 
@@ -262,33 +230,26 @@ rule mmuphin_clr_normalization:
 ############################################################
 
 rule batch_correction:
-
     input:
-
         source=get_batch_corrected_source
 
     output:
-
         table=
             "results/batch_effect/corrected/"
             "feature_table_corrected.tsv"
 
     log:
-
         "logs/batch_effect/batch_correction_select.log"
 
     benchmark:
-
         "benchmark/batch_effect/batch_correction_select.txt"
 
     shell:
-
         r"""
         set -euo pipefail
 
         mkdir -p "$(dirname "{output.table}")"
         mkdir -p "$(dirname "{log}")"
-        mkdir -p "$(dirname "{benchmark}")"
 
         cp \
             "{input.source}" \

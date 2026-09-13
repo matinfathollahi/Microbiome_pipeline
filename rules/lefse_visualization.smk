@@ -1,5 +1,4 @@
 rule lefse_visualization:
-
     input:
         significant="results/lefse/significant_taxa.tsv",
         abundance="results/lefse/feature_abundance.tsv",

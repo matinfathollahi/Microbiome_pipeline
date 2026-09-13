@@ -1,5 +1,4 @@
 rule validate_fastq:
-
     input:
         r1="data/raw/{accession}_1.fastq.gz",
         r2="data/raw/{accession}_2.fastq.gz"

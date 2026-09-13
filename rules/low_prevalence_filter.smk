@@ -1,5 +1,4 @@
 rule low_prevalence_filter:
-
     input:
         "results/filtering/feature_table_abundance.tsv"
 

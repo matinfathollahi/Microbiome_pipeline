@@ -1,7 +1,5 @@
 rule final_model_evaluation_batch_corrected:
-
     input:
-
         train=
             "results/machine_learning_batch_corrected/"
             "preprocessing/train_clr.tsv",
@@ -19,7 +17,6 @@ rule final_model_evaluation_batch_corrected:
             "optuna/best_model.json"
 
     output:
-
         metrics=
             "results/machine_learning_batch_corrected/"
             "final/final_test_metrics.tsv",
@@ -49,21 +46,17 @@ rule final_model_evaluation_batch_corrected:
             "final/final_model.joblib"
 
     log:
-
         "logs/machine_learning_batch_corrected/"
         "final_model_evaluation.log"
 
     benchmark:
-
         "benchmark/machine_learning_batch_corrected/"
         "final_model_evaluation.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         label=
             config[
                 "machine_learning"
@@ -131,8 +124,6 @@ rule final_model_evaluation_batch_corrected:
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         set -euo pipefail
 

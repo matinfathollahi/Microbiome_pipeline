@@ -1,7 +1,5 @@
 rule ancombc2:
-
     input:
-
         table=
             "results/export/feature_table/feature-table.tsv",
 
@@ -12,7 +10,6 @@ rule ancombc2:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         all_results=
             "results/ancombc2/all_results.tsv",
 
@@ -26,7 +23,6 @@ rule ancombc2:
             "results/ancombc2/analysis_summary.tsv"
 
     params:
-
         outdir=
             "results/ancombc2",
 
@@ -76,7 +72,6 @@ rule ancombc2:
         r"""
         mkdir -p {params.outdir}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

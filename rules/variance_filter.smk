@@ -1,11 +1,8 @@
 rule variance_filter:
-
     input:
-
         "results/machine_learning/preprocessing/train_clr.tsv"
 
     output:
-
         train="results/machine_learning/feature_selection/train_variance.tsv",
 
         selected="results/machine_learning/feature_selection/selected_variance_features.tsv",
@@ -13,19 +10,15 @@ rule variance_filter:
         removed="results/machine_learning/feature_selection/variance_removed_features.tsv"
 
     log:
-
         "logs/machine_learning/variance_filter.log"
 
     benchmark:
-
         "benchmark/machine_learning/variance_filter.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         threshold=config["machine_learning"]["variance_filter"]["threshold"],
 
         label=
@@ -36,7 +29,6 @@ rule variance_filter:
         )
 
     shell:
-
         """
         mkdir -p results/machine_learning/feature_selection
 

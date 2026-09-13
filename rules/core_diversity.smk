@@ -1,5 +1,4 @@
 rule core_diversity:
-
     input:
         table="results/qiime2/dada2/feature_table.qza",
         tree="results/qiime2/phylogeny/rooted_tree.qza",
@@ -27,7 +26,6 @@ rule core_diversity:
         r"""
         mkdir -p {output}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

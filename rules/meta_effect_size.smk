@@ -1,5 +1,4 @@
 rule meta_effect_size:
-
     input:
         "results/meta_analysis/prepared/meta_prepared.tsv"
 

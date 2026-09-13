@@ -8,9 +8,7 @@
 # feature distribution before the fixed train/test split.
 
 rule prepare_deep_learning_data_batch_corrected:
-
     input:
-
         train=
             "results/machine_learning_batch_corrected/train.tsv",
 
@@ -18,7 +16,6 @@ rule prepare_deep_learning_data_batch_corrected:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         features=
             "results/deep_learning/batch_corrected/"
             "data/train_features.tsv",
@@ -32,21 +29,17 @@ rule prepare_deep_learning_data_batch_corrected:
             "data/train_groups.tsv"
 
     log:
-
         "logs/deep_learning/batch_corrected/"
         "prepare_data.log"
 
     benchmark:
-
         "benchmark/deep_learning/batch_corrected/"
         "prepare_data.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         label=
             config[
                 "machine_learning"
@@ -62,7 +55,6 @@ rule prepare_deep_learning_data_batch_corrected:
             ]
 
     shell:
-
         r"""
         mkdir -p \
             results/deep_learning/batch_corrected/data
@@ -94,9 +86,7 @@ rule prepare_deep_learning_data_batch_corrected:
 
 
 rule deep_learning_nested_cv_batch_corrected:
-
     input:
-
         features=
             "results/deep_learning/batch_corrected/"
             "data/train_features.tsv",
@@ -110,7 +100,6 @@ rule deep_learning_nested_cv_batch_corrected:
             "data/train_groups.tsv"
 
     output:
-
         summary=
             "results/deep_learning/batch_corrected/"
             "nested_cv/nested_summary.json",
@@ -128,21 +117,17 @@ rule deep_learning_nested_cv_batch_corrected:
             "nested_cv/fold_artifacts.tar.gz"
 
     log:
-
         "logs/deep_learning/batch_corrected/"
         "nested_cv.log"
 
     benchmark:
-
         "benchmark/deep_learning/batch_corrected/"
         "nested_cv.txt"
 
     conda:
-
         "envs/deep_learning.yaml"
 
     params:
-
         inner=
             config[
                 "deep_learning"
@@ -241,9 +226,7 @@ rule deep_learning_nested_cv_batch_corrected:
 
 
 rule deep_learning_final_evaluation_batch_corrected:
-
     input:
-
         train=
             "results/machine_learning_batch_corrected/train.tsv",
 
@@ -258,7 +241,6 @@ rule deep_learning_final_evaluation_batch_corrected:
             "nested_cv/nested_summary.json"
 
     output:
-
         metrics=
             "results/deep_learning/batch_corrected/"
             "final/final_test_metrics.tsv",
@@ -288,7 +270,6 @@ rule deep_learning_final_evaluation_batch_corrected:
             "final/final_summary.json"
 
     params:
-
         label=
             config[
                 "machine_learning"
@@ -380,29 +361,23 @@ rule deep_learning_final_evaluation_batch_corrected:
             "results/deep_learning/batch_corrected/final"
 
     log:
-
         "logs/deep_learning/batch_corrected/"
         "final_evaluation.log"
 
     benchmark:
-
         "benchmark/deep_learning/batch_corrected/"
         "final_evaluation.txt"
 
     conda:
-
         "envs/deep_learning.yaml"
 
     shell:
-
         r"""
         mkdir -p {params.outdir}
 
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         set -euo pipefail
 
@@ -443,9 +418,7 @@ rule deep_learning_final_evaluation_batch_corrected:
 # primary inductive predictive evidence.
 
 rule deep_learning_visualization_batch_corrected:
-
     input:
-
         features=
             "results/deep_learning/batch_corrected/"
             "data/train_features.tsv",
@@ -463,7 +436,6 @@ rule deep_learning_visualization_batch_corrected:
             "nested_cv/fold_artifacts.tar.gz"
 
     output:
-
         summary=
             "results/deep_learning/batch_corrected/"
             "visualization/visualization_summary.json",
@@ -473,7 +445,6 @@ rule deep_learning_visualization_batch_corrected:
             "visualization/visualization_status.tsv"
 
     params:
-
         outdir=
             "results/deep_learning/batch_corrected/"
             "visualization",
@@ -522,24 +493,20 @@ rule deep_learning_visualization_batch_corrected:
             ]
 
     log:
-
         "logs/deep_learning/batch_corrected/"
         "visualization.log"
 
     benchmark:
-
         "benchmark/deep_learning/batch_corrected/"
         "visualization.txt"
 
     conda:
-
         "envs/deep_learning.yaml"
 
     shell:
         r"""
         mkdir -p "{params.outdir}"
         mkdir -p "$(dirname "{log}")"
-        mkdir -p "$(dirname "{benchmark}")"
 
         set -euo pipefail
 
@@ -582,9 +549,7 @@ rule deep_learning_visualization_batch_corrected:
 # not as the primary inductive explanation.
 
 rule deep_learning_explainability_batch_corrected:
-
     input:
-
         features=
             "results/deep_learning/batch_corrected/"
             "data/train_features.tsv",
@@ -602,7 +567,6 @@ rule deep_learning_explainability_batch_corrected:
             "nested_cv/fold_artifacts.tar.gz"
 
     output:
-
         summary=
             "results/deep_learning/batch_corrected/"
             "explainability/explainability_summary.json",
@@ -628,7 +592,6 @@ rule deep_learning_explainability_batch_corrected:
             "explainability/local_shap_explanations.tsv"
 
     params:
-
         outdir=
             "results/deep_learning/batch_corrected/"
             "explainability",
@@ -695,24 +658,20 @@ rule deep_learning_explainability_batch_corrected:
             ]
 
     log:
-
         "logs/deep_learning/batch_corrected/"
         "explainability.log"
 
     benchmark:
-
         "benchmark/deep_learning/batch_corrected/"
         "explainability.txt"
 
     conda:
-
         "envs/deep_learning.yaml"
 
     shell:
         r"""
         mkdir -p "{params.outdir}"
         mkdir -p "$(dirname "{log}")"
-        mkdir -p "$(dirname "{benchmark}")"
 
         set -euo pipefail
 

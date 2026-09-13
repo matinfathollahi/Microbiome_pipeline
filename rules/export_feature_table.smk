@@ -1,5 +1,4 @@
 rule export_feature_table:
-
     input:
         "results/qiime2/dada2/feature_table.qza"
 

@@ -1,5 +1,4 @@
 rule pcoa:
-
     input:
         bray="results/batch_effect/distance/bray_distance.tsv",
         jaccard="results/batch_effect/distance/jaccard_distance.tsv",
@@ -46,7 +45,7 @@ rule pcoa:
         mkdir -p logs/batch_effect
         mkdir -p benchmark/batch_effect
 
-        {
+        {{
 
         Rscript scripts/R/pcoa.R \
             {input.bray} \
@@ -78,5 +77,5 @@ rule pcoa:
             {input.metadata} \
             results/batch_effect/pcoa
 
-        } > {log} 2>&1
+        }} > {log} 2>&1
         """

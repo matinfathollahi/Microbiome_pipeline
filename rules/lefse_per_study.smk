@@ -1,7 +1,5 @@
 rule lefse_per_study_consensus:
-
     input:
-
         table=
             "results/export/feature_table/feature-table.tsv",
 
@@ -12,7 +10,6 @@ rule lefse_per_study_consensus:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         by_study=
             directory(
                 "results/lefse/by_study"
@@ -37,7 +34,6 @@ rule lefse_per_study_consensus:
             "results/lefse/consensus/consensus_summary.tsv"
 
     params:
-
         class_column=
             config["lefse"]["class_column"],
 
@@ -80,19 +76,15 @@ rule lefse_per_study_consensus:
             ]
 
     log:
-
         "logs/lefse/lefse_per_study.log"
 
     benchmark:
-
         "benchmark/lefse/lefse_per_study.txt"
 
     conda:
-
         "envs/lefse.yaml"
 
     shell:
-
         r"""
         set -euo pipefail
 

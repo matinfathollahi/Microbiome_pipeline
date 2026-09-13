@@ -1,11 +1,8 @@
 rule boruta_selection:
-
     input:
-
         "results/machine_learning/feature_selection/train_variance.tsv"
 
     output:
-
         train="results/machine_learning/feature_selection/train_boruta.tsv",
 
         features="results/machine_learning/feature_selection/boruta_features.tsv",
@@ -13,19 +10,15 @@ rule boruta_selection:
         ranking="results/machine_learning/feature_selection/boruta_ranking.tsv"
 
     log:
-
         "logs/machine_learning/boruta.log"
 
     benchmark:
-
         "benchmark/machine_learning/boruta.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         trees=config["machine_learning"]["boruta"]["n_estimators"],
 
         iters=config["machine_learning"]["boruta"]["max_iter"],
@@ -40,7 +33,6 @@ rule boruta_selection:
         )
 
     shell:
-
         """
         python scripts/python/boruta_selection.py \
             --input {input} \

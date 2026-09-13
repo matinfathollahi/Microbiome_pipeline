@@ -1,7 +1,5 @@
 rule predictive_mmuphin_sensitivity:
-
     input:
-
         table=
             "results/filtering/feature_table_filtered.tsv",
 
@@ -9,7 +7,6 @@ rule predictive_mmuphin_sensitivity:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         table=
             "results/batch_effect/predictive/mmuphin/"
             "feature_table_adjusted_abundance.tsv",
@@ -23,7 +20,6 @@ rule predictive_mmuphin_sensitivity:
             "mmuphin_summary.tsv"
 
     params:
-
         batch=
             config[
                 "batch_correction"
@@ -32,11 +28,9 @@ rule predictive_mmuphin_sensitivity:
             ]
 
     conda:
-
         "envs/r_batch.yaml"
 
     log:
-
         "logs/batch_effect/"
         "predictive_mmuphin_sensitivity.log"
 

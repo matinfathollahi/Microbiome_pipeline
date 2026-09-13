@@ -1,5 +1,10 @@
-rule dada2_batch:
+def dada2_batch_param(wildcards, key):
+    overrides = config["dada2"].get("batch_overrides", {}) or {}
+    batch_overrides = overrides.get(wildcards.batch, {}) or {}
+    return batch_overrides.get(key, config["dada2"][key])
 
+
+rule dada2_batch:
     input:
         preflight="results/qc/preflight/preflight_validation.json",
         demux="results/qiime2/import/{batch}/demux.qza"
@@ -10,16 +15,16 @@ rule dada2_batch:
         stats="results/qiime2/dada2/batches/{batch}/denoising_stats.qza"
 
     params:
-        trim_left_f=config["dada2"]["trim_left_f"],
-        trim_left_r=config["dada2"]["trim_left_r"],
-        trunc_len_f=config["dada2"]["trunc_len_f"],
-        trunc_len_r=config["dada2"]["trunc_len_r"],
-        max_ee_f=config["dada2"]["max_ee_f"],
-        max_ee_r=config["dada2"]["max_ee_r"],
-        trunc_q=config["dada2"]["trunc_q"],
-        chimera_method=config["dada2"]["chimera_method"],
-        pooling=config["dada2"]["pooling"],
-        min_overlap=config["dada2"]["min_overlap"]
+        trim_left_f=lambda wc: dada2_batch_param(wc, "trim_left_f"),
+        trim_left_r=lambda wc: dada2_batch_param(wc, "trim_left_r"),
+        trunc_len_f=lambda wc: dada2_batch_param(wc, "trunc_len_f"),
+        trunc_len_r=lambda wc: dada2_batch_param(wc, "trunc_len_r"),
+        max_ee_f=lambda wc: dada2_batch_param(wc, "max_ee_f"),
+        max_ee_r=lambda wc: dada2_batch_param(wc, "max_ee_r"),
+        trunc_q=lambda wc: dada2_batch_param(wc, "trunc_q"),
+        chimera_method=lambda wc: dada2_batch_param(wc, "chimera_method"),
+        pooling=lambda wc: dada2_batch_param(wc, "pooling"),
+        min_overlap=lambda wc: dada2_batch_param(wc, "min_overlap")
 
     log:
         "logs/qiime2/dada2/{batch}.log"
@@ -37,7 +42,6 @@ rule dada2_batch:
         r"""
         mkdir -p $(dirname {output.table})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 
@@ -62,7 +66,6 @@ rule dada2_batch:
 
 
 rule merge_dada2:
-
     input:
         preflight="results/qc/preflight/preflight_validation.json",
 
@@ -93,11 +96,10 @@ rule merge_dada2:
         r"""
         mkdir -p $(dirname {output.table})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 
-        {
+        {{
             qiime feature-table merge \
                 --i-tables {input.tables} \
                 --o-merged-table {output.table}
@@ -105,5 +107,5 @@ rule merge_dada2:
             qiime feature-table merge-seqs \
                 --i-data {input.repseqs} \
                 --o-merged-data {output.repseq}
-        } > {log} 2>&1
+        }} > {log} 2>&1
         """

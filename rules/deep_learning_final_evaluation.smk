@@ -1,7 +1,5 @@
 rule deep_learning_final_evaluation:
-
     input:
-
         train=
             "results/machine_learning/train.tsv",
 
@@ -15,7 +13,6 @@ rule deep_learning_final_evaluation:
             "results/deep_learning/nested_cv/nested_summary.json"
 
     output:
-
         metrics=
             "results/deep_learning/final/final_test_metrics.tsv",
 
@@ -37,7 +34,6 @@ rule deep_learning_final_evaluation:
             "results/deep_learning/final/final_summary.json"
 
     params:
-
         label=
             config[
                 "machine_learning"
@@ -115,23 +111,18 @@ rule deep_learning_final_evaluation:
             "results/deep_learning/final"
 
     log:
-
         "logs/deep_learning/final_evaluation.log"
 
     benchmark:
-
         "benchmark/deep_learning/final_evaluation.txt"
 
     conda:
-
         "envs/deep_learning.yaml"
 
     shell:
-
         r"""
         mkdir -p {params.outdir}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

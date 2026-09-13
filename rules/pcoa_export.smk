@@ -6,7 +6,6 @@ DISTANCE_METRICS = [
 ]
 
 rule export_pcoa:
-
     input:
         pcoa="results/qiime2/diversity/core_metrics/{metric}_pcoa_results.qza"
 

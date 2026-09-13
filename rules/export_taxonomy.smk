@@ -1,5 +1,4 @@
 rule export_taxonomy:
-
     input:
         taxonomy="results/qiime2/taxonomy/taxonomy.qza"
 

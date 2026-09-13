@@ -1,7 +1,5 @@
 rule prepare_ml_dataset_batch_corrected_sensitivity:
-
     input:
-
         table=
             "results/batch_effect/predictive/mmuphin/"
             "feature_table_adjusted_abundance.tsv",
@@ -10,13 +8,11 @@ rule prepare_ml_dataset_batch_corrected_sensitivity:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         dataset=
             "results/machine_learning_batch_corrected/"
             "dataset.tsv"
 
     params:
-
         label=
             config[
                 "machine_learning"
@@ -34,16 +30,13 @@ rule prepare_ml_dataset_batch_corrected_sensitivity:
             )
 
     conda:
-
         "envs/R.yaml"
 
     log:
-
         "logs/machine_learning_batch_corrected/"
         "prepare_dataset.log"
 
     shell:
-
         r"""
         mkdir -p \
             results/machine_learning_batch_corrected

@@ -1,5 +1,4 @@
 rule pcoa_after_batch:
-
     input:
         distance="results/batch_effect/distance/bray_distance.tsv",
         metadata="results/export/metadata/sample_metadata.tsv"
@@ -20,7 +19,6 @@ rule pcoa_after_batch:
         r"""
         mkdir -p {output}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

@@ -1,7 +1,9 @@
 rule preflight_validation:
-
     input:
-        config="config/config.yaml"
+        config="config/config.yaml",
+        metadata="metadata/sample_metadata.tsv",
+        accessions="metadata/accessions.tsv",
+        classifier="database/silva-138-99-classifier.qza"
 
     output:
         validation_json="results/qc/preflight/preflight_validation.json",
@@ -25,7 +27,6 @@ rule preflight_validation:
         r"""
         mkdir -p results/qc/preflight
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

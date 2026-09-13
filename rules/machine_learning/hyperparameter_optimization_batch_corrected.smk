@@ -1,11 +1,8 @@
 rule hyperparameter_optimization_batch_corrected:
-
     input:
-
         "results/machine_learning_batch_corrected/nested_cv"
 
     output:
-
         best_model=
             "results/machine_learning_batch_corrected/"
             "optuna/best_model.json",
@@ -19,19 +16,15 @@ rule hyperparameter_optimization_batch_corrected:
             "optuna/outer_fold_results.tsv"
 
     log:
-
         "logs/machine_learning_batch_corrected/optuna.log"
 
     benchmark:
-
         "benchmark/machine_learning_batch_corrected/optuna.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         label=
             config[
                 "machine_learning"
@@ -83,8 +76,6 @@ rule hyperparameter_optimization_batch_corrected:
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         set -euo pipefail
 

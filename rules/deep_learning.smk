@@ -1,5 +1,4 @@
 rule prepare_deep_learning_data:
-
     input:
         train=
             "results/machine_learning/train.tsv",
@@ -53,7 +52,6 @@ rule prepare_deep_learning_data:
 
 
 rule deep_learning_nested_cv:
-
     input:
         features=
             "results/deep_learning/data/train_features.tsv",
@@ -88,9 +86,6 @@ rule deep_learning_nested_cv:
         "envs/deep_learning.yaml"
 
     params:
-
-
-
         inner=
             config["deep_learning"]["inner_folds"],
 

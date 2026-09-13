@@ -1,7 +1,5 @@
 rule batch_correction_html:
-
     input:
-
         summary="results/batch_correction/report/batch_report.tsv",
 
         pca_before="results/pca/PCA.pdf",
@@ -17,15 +15,12 @@ rule batch_correction_html:
         confounding="results/batch_correction/confounding/confounding_after.pdf"
 
     output:
-
         "results/batch_correction/report/batch_report.html"
 
     conda:
-
         "envs/R.yaml"
 
     shell:
-
         """
         Rscript scripts/R/batch_report_html.R \
             {input.summary} \

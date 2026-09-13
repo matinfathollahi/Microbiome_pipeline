@@ -1,5 +1,4 @@
 rule representative_sequences_summary:
-
     input:
         repseq="results/qiime2/dada2/representative_sequences.qza"
 

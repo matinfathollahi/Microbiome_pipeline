@@ -1,12 +1,9 @@
 rule variance_filter_batch_corrected:
-
     input:
-
         "results/machine_learning_batch_corrected/"
         "preprocessing/train_clr.tsv"
 
     output:
-
         train=
             "results/machine_learning_batch_corrected/"
             "feature_selection/train_variance.tsv",
@@ -20,21 +17,17 @@ rule variance_filter_batch_corrected:
             "feature_selection/variance_removed_features.tsv"
 
     log:
-
         "logs/machine_learning_batch_corrected/"
         "variance_filter.log"
 
     benchmark:
-
         "benchmark/machine_learning_batch_corrected/"
         "variance_filter.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         threshold=
             config[
                 "machine_learning"
@@ -68,8 +61,6 @@ rule variance_filter_batch_corrected:
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         python scripts/python/variance_filter.py \
             --input "{input}" \
@@ -89,14 +80,11 @@ rule variance_filter_batch_corrected:
 
 
 rule boruta_selection_batch_corrected:
-
     input:
-
         "results/machine_learning_batch_corrected/"
         "feature_selection/train_variance.tsv"
 
     output:
-
         train=
             "results/machine_learning_batch_corrected/"
             "feature_selection/train_boruta.tsv",
@@ -110,21 +98,17 @@ rule boruta_selection_batch_corrected:
             "feature_selection/boruta_ranking.tsv"
 
     log:
-
         "logs/machine_learning_batch_corrected/"
         "boruta.log"
 
     benchmark:
-
         "benchmark/machine_learning_batch_corrected/"
         "boruta.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         trees=
             config[
                 "machine_learning"
@@ -176,8 +160,6 @@ rule boruta_selection_batch_corrected:
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         python scripts/python/boruta_selection.py \
             --input "{input}" \
@@ -199,14 +181,11 @@ rule boruta_selection_batch_corrected:
 
 
 rule elasticnet_selection_batch_corrected:
-
     input:
-
         "results/machine_learning_batch_corrected/"
         "feature_selection/train_variance.tsv"
 
     output:
-
         train=
             "results/machine_learning_batch_corrected/"
             "feature_selection/train_elasticnet.tsv",
@@ -220,21 +199,17 @@ rule elasticnet_selection_batch_corrected:
             "feature_selection/elasticnet_coefficients.tsv"
 
     log:
-
         "logs/machine_learning_batch_corrected/"
         "elasticnet.log"
 
     benchmark:
-
         "benchmark/machine_learning_batch_corrected/"
         "elasticnet.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         cv=
             config[
                 "machine_learning"
@@ -286,8 +261,6 @@ rule elasticnet_selection_batch_corrected:
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         python scripts/python/elasticnet_selection.py \
             --input "{input}" \
@@ -309,14 +282,11 @@ rule elasticnet_selection_batch_corrected:
 
 
 rule rf_selection_batch_corrected:
-
     input:
-
         "results/machine_learning_batch_corrected/"
         "feature_selection/train_variance.tsv"
 
     output:
-
         train=
             "results/machine_learning_batch_corrected/"
             "feature_selection/train_rf.tsv",
@@ -330,21 +300,17 @@ rule rf_selection_batch_corrected:
             "feature_selection/rf_importance.tsv"
 
     log:
-
         "logs/machine_learning_batch_corrected/"
         "rf_selection.log"
 
     benchmark:
-
         "benchmark/machine_learning_batch_corrected/"
         "rf_selection.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         trees=
             config[
                 "machine_learning"
@@ -396,8 +362,6 @@ rule rf_selection_batch_corrected:
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         python scripts/python/rf_selection.py \
             --input "{input}" \
@@ -419,9 +383,7 @@ rule rf_selection_batch_corrected:
 
 
 rule consensus_selection_batch_corrected:
-
     input:
-
         train=
             "results/machine_learning_batch_corrected/"
             "feature_selection/train_variance.tsv",
@@ -439,7 +401,6 @@ rule consensus_selection_batch_corrected:
             "feature_selection/rf_features.tsv"
 
     output:
-
         train=
             "results/machine_learning_batch_corrected/"
             "feature_selection/train_consensus.tsv",
@@ -449,21 +410,17 @@ rule consensus_selection_batch_corrected:
             "feature_selection/consensus_features.tsv"
 
     log:
-
         "logs/machine_learning_batch_corrected/"
         "consensus.log"
 
     benchmark:
-
         "benchmark/machine_learning_batch_corrected/"
         "consensus.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         label=
             config[
                 "machine_learning"
@@ -497,8 +454,6 @@ rule consensus_selection_batch_corrected:
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         python scripts/python/consensus_selection.py \
             --train "{input.train}" \

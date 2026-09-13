@@ -1,5 +1,4 @@
 rule alpha_plots:
-
     input:
         alpha=expand(
             "results/export/alpha/{metric}/alpha-diversity.tsv",

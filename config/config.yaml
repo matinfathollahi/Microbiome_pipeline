@@ -82,6 +82,16 @@ dada2:
 
   threads: 8
 
+  # Per-DenoiseBatch overrides. Any parameter omitted for a batch
+  # falls back to the global values above. Useful when studies differ
+  # in read length / quality profile and need different trim/trunc values.
+  # Example:
+  #   batch_overrides:
+  #     PRJEB39064:
+  #       trunc_len_f: 230
+  #       trunc_len_r: 190
+  batch_overrides: {}
+
 
 #########################################
 # Taxonomy
@@ -185,6 +195,8 @@ permanova:
 
   permutations: 999
 
+  seed: 2026
+
 
 #########################################
 
@@ -210,7 +222,7 @@ variance_partition:
 
 confounding:
 
-
+  batch: Batch
 
   variables:
 

@@ -1,5 +1,4 @@
 rule download_sra:
-
     input:
         preflight=
             "results/qc/preflight/preflight_validation.json"
@@ -26,7 +25,6 @@ rule download_sra:
         r"""
         mkdir -p $(dirname {output.sra})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

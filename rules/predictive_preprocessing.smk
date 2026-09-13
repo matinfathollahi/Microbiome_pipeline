@@ -1,7 +1,5 @@
 rule predictive_preprocessing:
-
     input:
-
         train=
             "results/machine_learning/train.tsv",
 
@@ -12,7 +10,6 @@ rule predictive_preprocessing:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         train=
             "results/machine_learning/preprocessing/train_clr.tsv",
 
@@ -29,7 +26,6 @@ rule predictive_preprocessing:
             "results/machine_learning/preprocessing/summary.json"
 
     params:
-
         min_count=
             config[
                 "filtering"
@@ -66,7 +62,6 @@ rule predictive_preprocessing:
         r"""
         mkdir -p results/machine_learning/preprocessing
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

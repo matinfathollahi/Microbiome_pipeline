@@ -1,5 +1,4 @@
 rule permdisp:
-
     input:
         core_metrics="results/qiime2/diversity/core_metrics",
         metadata="metadata/sample_metadata.tsv"

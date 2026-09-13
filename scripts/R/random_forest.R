@@ -98,7 +98,7 @@ if (nlevels(counts$Group) < 2) {
 ## Train/Test split
 ############################################################
 
-set.seed(123)
+set.seed(2026)
 
 train_index <- createDataPartition(
     counts$Group,

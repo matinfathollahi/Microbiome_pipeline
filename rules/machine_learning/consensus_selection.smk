@@ -1,7 +1,5 @@
 rule consensus_selection:
-
     input:
-
         train="results/machine_learning/feature_selection/train_variance.tsv",
 
         boruta="results/machine_learning/feature_selection/boruta_features.tsv",
@@ -11,25 +9,20 @@ rule consensus_selection:
         rf="results/machine_learning/feature_selection/rf_features.tsv"
 
     output:
-
         train="results/machine_learning/feature_selection/train_consensus.tsv",
 
         features="results/machine_learning/feature_selection/consensus_features.tsv"
 
     log:
-
         "logs/machine_learning/consensus.log"
 
     benchmark:
-
         "benchmark/machine_learning/consensus.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         label=
             config["machine_learning"]["label"],
 
@@ -40,7 +33,6 @@ rule consensus_selection:
         minimum=config["machine_learning"]["consensus"]["min_methods"]
 
     shell:
-
         """
         python scripts/python/consensus_selection.py \
             --train {input.train} \

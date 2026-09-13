@@ -1,7 +1,5 @@
 rule deep_learning_explainability:
-
     input:
-
         features=
             "results/deep_learning/data/train_features.tsv",
 
@@ -15,7 +13,6 @@ rule deep_learning_explainability:
             "results/deep_learning/nested_cv/fold_artifacts.tar.gz"
 
     output:
-
         summary=
             "results/deep_learning/explainability/explainability_summary.json",
 
@@ -35,7 +32,6 @@ rule deep_learning_explainability:
             "results/deep_learning/explainability/local_shap_explanations.tsv"
 
     params:
-
         outdir=
             "results/deep_learning/explainability",
 
@@ -115,7 +111,6 @@ rule deep_learning_explainability:
         r"""
         mkdir -p {params.outdir}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

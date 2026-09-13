@@ -1,11 +1,8 @@
 rule elasticnet_selection:
-
     input:
-
         "results/machine_learning/feature_selection/train_variance.tsv"
 
     output:
-
         train="results/machine_learning/feature_selection/train_elasticnet.tsv",
 
         features="results/machine_learning/feature_selection/elasticnet_features.tsv",
@@ -13,19 +10,15 @@ rule elasticnet_selection:
         coef="results/machine_learning/feature_selection/elasticnet_coefficients.tsv"
 
     log:
-
         "logs/machine_learning/elasticnet.log"
 
     benchmark:
-
         "benchmark/machine_learning/elasticnet.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         cv=config["machine_learning"]["elasticnet"]["cv"],
 
         l1=config["machine_learning"]["elasticnet"]["l1_ratio"],
@@ -40,7 +33,6 @@ rule elasticnet_selection:
         )
 
     shell:
-
         """
         python scripts/python/elasticnet_selection.py \
             --input {input} \

@@ -4,7 +4,7 @@ channels:
   - conda-forge
 
 dependencies:
-  - r-base
+  - r-base=4.5.2
   - r-randomforest
   - r-dplyr
   - r-caret

@@ -1,5 +1,4 @@
 rule lefse:
-
     input:
         table="results/export/feature_table/feature-table.tsv",
         taxonomy="results/export/taxonomy/taxonomy.tsv",
@@ -31,7 +30,6 @@ rule lefse:
         """
         mkdir -p results/lefse
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         bash scripts/bash/lefse.sh \
             {input.table} \

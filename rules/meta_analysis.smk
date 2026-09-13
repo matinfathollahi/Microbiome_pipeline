@@ -6,9 +6,7 @@ import pandas as pd
 ############################################################
 
 checkpoint discover_meta_studies:
-
     input:
-
         preflight=
             "results/qc/preflight/"
             "preflight_validation.json",
@@ -22,7 +20,6 @@ checkpoint discover_meta_studies:
             "feature-table.tsv"
 
     output:
-
         map=
             "results/meta_analysis/"
             "study_map.tsv",
@@ -32,7 +29,6 @@ checkpoint discover_meta_studies:
             "study_eligibility.tsv"
 
     params:
-
         study_column=
             config[
                 "meta_analysis"
@@ -92,25 +88,20 @@ checkpoint discover_meta_studies:
             ]
 
     log:
-
         "logs/meta_analysis/"
         "discover_studies.log"
 
     benchmark:
-
         "benchmark/meta_analysis/"
         "discover_studies.txt"
 
     conda:
-
         "envs/python.yaml"
 
     shell:
-
         r"""
         mkdir -p $(dirname {output.map})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 
@@ -249,9 +240,7 @@ def get_meta_study_results(wildcards):
 ############################################################
 
 rule prepare_meta_study:
-
     input:
-
         table=
             "results/export/feature_table/"
             "feature-table.tsv",
@@ -265,7 +254,6 @@ rule prepare_meta_study:
             "study_map.tsv"
 
     output:
-
         table=
             "results/meta_analysis/"
             "studies/{study}/"
@@ -277,7 +265,6 @@ rule prepare_meta_study:
             "input/metadata.tsv"
 
     params:
-
         study_column=
             config[
                 "meta_analysis"
@@ -306,7 +293,6 @@ rule prepare_meta_study:
     shell:
         r"""
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         python scripts/python/prepare_meta_study.py \
             --table {input.table} \
@@ -326,9 +312,7 @@ rule prepare_meta_study:
 ############################################################
 
 rule meta_study_deseq2:
-
     input:
-
         table=
             "results/meta_analysis/"
             "studies/{study}/"
@@ -340,13 +324,11 @@ rule meta_study_deseq2:
             "input/metadata.tsv"
 
     output:
-
         "results/meta_analysis/"
         "studies/{study}/"
         "deseq2/results.tsv"
 
     params:
-
         sample_column=
             config[
                 "meta_analysis"
@@ -390,7 +372,6 @@ rule meta_study_deseq2:
         r"""
         mkdir -p $(dirname {output})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         Rscript scripts/R/meta_deseq2.R \
             {input.table} \
@@ -410,7 +391,6 @@ rule meta_study_deseq2:
 ############################################################
 
 rule meta_prepare:
-
     input:
         results=
             get_meta_study_results
@@ -434,7 +414,6 @@ rule meta_prepare:
         r"""
         mkdir -p $(dirname {output})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         python scripts/python/combine_meta_results.py \
             --inputs {input.results} \

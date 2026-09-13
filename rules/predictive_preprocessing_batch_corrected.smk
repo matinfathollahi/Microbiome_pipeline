@@ -1,7 +1,5 @@
 rule predictive_preprocessing_batch_corrected:
-
     input:
-
         train=
             "results/machine_learning_batch_corrected/train.tsv",
 
@@ -12,7 +10,6 @@ rule predictive_preprocessing_batch_corrected:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         train=
             "results/machine_learning_batch_corrected/"
             "preprocessing/train_clr.tsv",
@@ -34,7 +31,6 @@ rule predictive_preprocessing_batch_corrected:
             "preprocessing/summary.json"
 
     params:
-
         min_count=
             config[
                 "filtering"
@@ -59,17 +55,14 @@ rule predictive_preprocessing_batch_corrected:
             ]
 
     log:
-
         "logs/machine_learning_batch_corrected/"
         "predictive_preprocessing.log"
 
     benchmark:
-
         "benchmark/machine_learning_batch_corrected/"
         "predictive_preprocessing.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     shell:
@@ -80,8 +73,6 @@ rule predictive_preprocessing_batch_corrected:
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         set -euo pipefail
 

@@ -1,7 +1,5 @@
 rule batch_correction_report:
-
     input:
-
         pca_before="results/pca/pca_variance.tsv",
 
         pca_after="results/batch_correction/pca/variance_explained.tsv",
@@ -19,23 +17,18 @@ rule batch_correction_report:
         conf_after="results/batch_correction/confounding/confounding_after.tsv"
 
     output:
-
         directory("results/batch_correction/report")
 
     log:
-
         "logs/batch_correction/report.log"
 
     benchmark:
-
         "benchmark/batch_correction/report.txt"
 
     conda:
-
         "envs/R.yaml"
 
     shell:
-
         """
         mkdir -p {output}
 

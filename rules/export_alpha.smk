@@ -7,7 +7,6 @@ ALPHA_METRICS = [
 
 
 rule export_alpha:
-
     input:
         core_metrics="results/qiime2/diversity/core_metrics"
 

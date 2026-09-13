@@ -1,5 +1,4 @@
 rule alpha_statistics:
-
     input:
         alpha=expand(
             "results/export/alpha/{metric}/alpha-diversity.tsv",

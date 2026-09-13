@@ -1,5 +1,4 @@
 rule random_forest:
-
     input:
         table="results/export/feature_table/feature-table.tsv",
         metadata="results/export/metadata/sample_metadata.tsv"

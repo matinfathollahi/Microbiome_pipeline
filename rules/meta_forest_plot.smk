@@ -1,5 +1,4 @@
 rule meta_forest_plot:
-
     input:
         effect_size="results/meta_analysis/effect_size/meta_effect_size.tsv"
 
@@ -19,7 +18,6 @@ rule meta_forest_plot:
         r"""
         mkdir -p {output}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

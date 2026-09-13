@@ -1,7 +1,5 @@
 rule final_model_evaluation:
-
     input:
-
         train=
             "results/machine_learning/preprocessing/train_clr.tsv",
 
@@ -14,7 +12,6 @@ rule final_model_evaluation:
             "results/machine_learning/optuna/best_model.json"
 
     output:
-
         metrics=
             "results/machine_learning/final/final_test_metrics.tsv",
 
@@ -37,19 +34,15 @@ rule final_model_evaluation:
             "results/machine_learning/final/final_model.joblib"
 
     log:
-
         "logs/machine_learning/final_model_evaluation.log"
 
     benchmark:
-
         "benchmark/machine_learning/final_model_evaluation.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         label=
             config["machine_learning"]["label"],
 

@@ -1,31 +1,24 @@
 rule feature_scaling:
-
     input:
-
         train="results/machine_learning/train.tsv",
 
         test="results/machine_learning/test.tsv"
 
     output:
-
         train="results/machine_learning/train_scaled.tsv",
 
         test="results/machine_learning/test_scaled.tsv"
 
     conda:
-
         "envs/ml.yaml"
 
     log:
-
         "logs/machine_learning/feature_scaling.log"
 
     benchmark:
-
         "benchmark/machine_learning/feature_scaling.txt"
 
     params:
-
         method=config["machine_learning"]["scaling"]["method"],
 
         metadata=",".join(
@@ -33,7 +26,6 @@ rule feature_scaling:
         )
 
     shell:
-
         """
         python scripts/python/feature_scaling.py \
             --train {input.train} \

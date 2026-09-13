@@ -8,31 +8,24 @@
 
 
 rule nested_cv_batch_corrected:
-
     input:
-
         "results/machine_learning_batch_corrected/train.tsv"
 
     output:
-
         directory(
             "results/machine_learning_batch_corrected/nested_cv"
         )
 
     log:
-
         "logs/machine_learning_batch_corrected/nested_cv.log"
 
     benchmark:
-
         "benchmark/machine_learning_batch_corrected/nested_cv.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         label=
             config[
                 "machine_learning"
@@ -197,7 +190,6 @@ rule nested_cv_batch_corrected:
             ]
 
     shell:
-
         r"""
         mkdir -p \
             results/machine_learning_batch_corrected/nested_cv
@@ -205,8 +197,6 @@ rule nested_cv_batch_corrected:
         mkdir -p \
             $(dirname {log})
 
-        mkdir -p \
-            $(dirname {benchmark})
 
         set -euo pipefail
 

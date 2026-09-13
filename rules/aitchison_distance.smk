@@ -1,5 +1,4 @@
 rule aitchison_distance:
-
     input:
         "results/batch_effect/feature_table_clr.tsv"
 

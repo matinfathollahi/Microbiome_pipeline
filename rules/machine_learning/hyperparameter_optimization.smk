@@ -1,5 +1,4 @@
 rule hyperparameter_optimization:
-
     input:
         "results/machine_learning/nested_cv"
 
@@ -23,7 +22,6 @@ rule hyperparameter_optimization:
         "envs/ml.yaml"
 
     params:
-
         label=
             config["machine_learning"]["label"],
 
@@ -66,7 +64,6 @@ rule hyperparameter_optimization:
     shell:
         """
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         python scripts/python/optuna_search.py \
             --nested {input} \

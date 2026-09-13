@@ -1,12 +1,9 @@
 rule train_test_split:
-
     input:
-
         dataset=
             "results/machine_learning/dataset.tsv"
 
     output:
-
         train=
             "results/machine_learning/train.tsv",
 
@@ -22,19 +19,15 @@ rule train_test_split:
             "test_samples.tsv"
 
     log:
-
         "logs/machine_learning/train_test_split.log"
 
     benchmark:
-
         "benchmark/machine_learning/train_test_split.txt"
 
     conda:
-
         "envs/ml.yaml"
 
     params:
-
         label=
             config[
                 "machine_learning"

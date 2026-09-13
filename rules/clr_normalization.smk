@@ -1,5 +1,4 @@
 rule clr_normalization:
-
     input:
         "results/selbal/feature_table_zero_replaced.tsv"
 

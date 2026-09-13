@@ -1,5 +1,4 @@
 rule low_abundance_filter:
-
     input:
         "results/export/feature_table/feature-table.tsv"
 

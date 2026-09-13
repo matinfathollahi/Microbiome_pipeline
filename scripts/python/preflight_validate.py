@@ -385,6 +385,11 @@ def main():
             {}
         )
 
+        confounding_cfg = config.get(
+            "confounding",
+            {}
+        )
+
         ml_cfg = config.get(
             "machine_learning",
             {}
@@ -410,6 +415,11 @@ def main():
             "Batch"
         )
 
+        confounding_batch_column = confounding_cfg.get(
+            "batch",
+            None
+        )
+
         ml_label = ml_cfg.get(
             "label",
             group_column
@@ -426,6 +436,12 @@ def main():
             group_column,
             ml_label
         }
+
+        if confounding_batch_column:
+
+            required_columns.add(
+                confounding_batch_column
+            )
 
 
         batch_enabled = bool(
@@ -699,6 +715,39 @@ def main():
             case_group = meta_cfg.get(
                 "case_group"
             )
+
+            meta_method = meta_cfg.get(
+                "method",
+                "DESeq2"
+            )
+
+            supported_meta_methods = {
+                "DESeq2"
+            }
+
+            meta_method_ok = (
+                meta_method in supported_meta_methods
+            )
+
+            add_check(
+                "meta_analysis_method_supported",
+                meta_method_ok,
+                (
+                    f"meta_analysis.method = {meta_method}"
+                    if meta_method_ok
+                    else
+                    f"meta_analysis.method = '{meta_method}' is not "
+                    "implemented. Supported methods: "
+                    + ", ".join(sorted(supported_meta_methods))
+                )
+            )
+
+            if not meta_method_ok:
+
+                errors.append(
+                    f"meta_analysis.method '{meta_method}' is not "
+                    "implemented in this pipeline."
+                )
 
 
             ################################################

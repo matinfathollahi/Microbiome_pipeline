@@ -1,5 +1,4 @@
 rule export_tree:
-
     input:
         tree="results/qiime2/phylogeny/rooted_tree.qza"
 
@@ -19,7 +18,6 @@ rule export_tree:
         r"""
         mkdir -p {output}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

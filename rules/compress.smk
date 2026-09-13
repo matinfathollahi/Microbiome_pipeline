@@ -1,5 +1,4 @@
 rule compress_fastq:
-
     input:
         r1="data/raw/{accession}_1.fastq",
         r2="data/raw/{accession}_2.fastq"

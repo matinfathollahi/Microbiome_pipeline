@@ -1,5 +1,4 @@
 rule beta_plots:
-
     input:
         pcoa="results/export/pcoa/bray_curtis/ordination.txt",
         metadata="metadata/sample_metadata.tsv"
@@ -20,7 +19,6 @@ rule beta_plots:
         r"""
         mkdir -p $(dirname {output.figure})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

@@ -1,5 +1,4 @@
 rule export_sequences:
-
     input:
         "results/qiime2/dada2/representative_sequences.qza"
 

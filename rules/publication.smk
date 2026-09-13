@@ -9,10 +9,40 @@ def optional_predictive_sensitivity_input(path):
         return path
     return []
 
+
+def optional_da_input(path):
+    if DA_ENABLED and DA_PRIMARY_METHOD == "ancombc2":
+        return path
+    return []
+
+
+def optional_aldex2_input(path):
+    if ALDEX2_ENABLED:
+        return path
+    return []
+
+
+def optional_maaslin2_input(path):
+    if MAASLIN2_ENABLED:
+        return path
+    return []
+
+
+def optional_supp_da_comparison_input(path):
+    if SUPP_DA_ENABLED and DA_ENABLED:
+        return path
+    return []
+
+
+PUBLICATION_BETA_METRICS = [
+    "bray_curtis",
+    "jaccard",
+    "weighted_unifrac",
+    "unweighted_unifrac"
+]
+
 rule publication_bundle:
-
     input:
-
         alpha=
             "results/figures/alpha",
 
@@ -20,22 +50,34 @@ rule publication_bundle:
             "results/statistics/alpha",
 
         ancombc2=
-            "results/ancombc2/analysis_summary.tsv",
+            optional_da_input(
+                "results/ancombc2/analysis_summary.tsv"
+            ),
 
         aldex2=
-            "results/aldex2/analysis_summary.tsv",
+            optional_aldex2_input(
+                "results/aldex2/analysis_summary.tsv"
+            ),
 
         maaslin2=
-            "results/maaslin2/group_results.tsv",
+            optional_maaslin2_input(
+                "results/maaslin2/group_results.tsv"
+            ),
 
         maaslin2_significant=
-            "results/maaslin2/group_significant_results.tsv",
+            optional_maaslin2_input(
+                "results/maaslin2/group_significant_results.tsv"
+            ),
 
         supplementary_da_comparison=
-            "results/supplementary_da/method_comparison.tsv",
+            optional_supp_da_comparison_input(
+                "results/supplementary_da/method_comparison.tsv"
+            ),
 
         supplementary_da_primary=
-            "results/supplementary_da/primary_robustness.tsv",
+            optional_supp_da_comparison_input(
+                "results/supplementary_da/primary_robustness.tsv"
+            ),
 
         lefse_consensus=
             "results/lefse/consensus/consensus_taxa.tsv",
@@ -56,7 +98,25 @@ rule publication_bundle:
             "results/lefse/figures",
 
         selbal=
-            "results/selbal/analysis",
+            "results/selbal/analysis/selbal_loso_summary.tsv",
+
+        beta_permanova_study_aware=
+            expand(
+                "results/statistics/beta/{metric}_PERMANOVA.tsv",
+                metric=PUBLICATION_BETA_METRICS
+            ),
+
+        beta_group_effect_study_aware=
+            expand(
+                "results/statistics/beta/{metric}_Group_Effect.tsv",
+                metric=PUBLICATION_BETA_METRICS
+            ),
+
+        permdisp_study_aware=
+            expand(
+                "results/statistics/permdisp/{metric}_Summary.tsv",
+                metric=PUBLICATION_BETA_METRICS
+            ),
 
         meta_results=
             optional_meta_input(
@@ -134,7 +194,6 @@ rule publication_bundle:
             "results/deep_learning/visualization/visualization_summary.json"
 
     output:
-
         manifest=
             "results/publication/manifest.tsv",
 
@@ -142,7 +201,6 @@ rule publication_bundle:
             "results/publication/publication_summary.json"
 
     params:
-
         predictive_sensitivity_flag=
             (
                 "--include-predictive-sensitivity"
@@ -163,7 +221,6 @@ rule publication_bundle:
         r"""
         mkdir -p results/publication
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

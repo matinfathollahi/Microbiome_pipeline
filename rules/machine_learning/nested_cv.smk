@@ -1,5 +1,4 @@
 rule nested_cv:
-
     input:
         "results/machine_learning/train.tsv"
 

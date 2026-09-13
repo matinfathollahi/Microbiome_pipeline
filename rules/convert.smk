@@ -1,8 +1,7 @@
 rule convert_fastq:
-
     input:
         sra="data/sra/{accession}/{accession}.sra",
-        validation="results/validation/{accession}.ok"
+        validation="results/validation/{accession}.sra.ok"
 
     output:
         r1=temp("data/raw/{accession}_1.fastq"),
@@ -28,7 +27,6 @@ rule convert_fastq:
         r"""
         mkdir -p $(dirname {output.r1})
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

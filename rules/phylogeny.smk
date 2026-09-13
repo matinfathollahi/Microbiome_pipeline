@@ -1,10 +1,8 @@
 rule phylogeny:
-
     input:
         repseq="results/qiime2/dada2/representative_sequences.qza"
 
     output:
-
         aligned="results/qiime2/phylogeny/aligned_rep_seqs.qza",
 
         masked="results/qiime2/phylogeny/masked_aligned_rep_seqs.qza",

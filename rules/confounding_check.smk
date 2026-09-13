@@ -1,5 +1,4 @@
 rule confounding_check:
-
     input:
         metadata="results/export/metadata/sample_metadata.tsv"
 

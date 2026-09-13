@@ -110,6 +110,16 @@ SOURCES = {
             "results/selbal/analysis"
         ),
 
+    "beta_permanova_study_aware":
+        Path(
+            "results/statistics/beta"
+        ),
+
+    "permdisp_study_aware":
+        Path(
+            "results/statistics/permdisp"
+        ),
+
     "meta_forest":
         Path(
             "results/meta_analysis/figures/forest"

@@ -9,14 +9,15 @@ library(readr)
 
 args <- commandArgs(trailingOnly = TRUE)
 
-if(length(args) != 4){
-    stop("Usage: permanova.R <distance.tsv> <method> <metadata.tsv> <output_dir>")
+if(length(args) != 5){
+    stop("Usage: permanova.R <distance.tsv> <method> <metadata.tsv> <output_dir> <seed>")
 }
 
 distance_file <- args[1]
 method <- args[2]
 metadata_file <- args[3]
 output_dir <- args[4]
+seed <- as.integer(args[5])
 
 dir.create(
     output_dir,
@@ -89,7 +90,7 @@ if(nlevels(metadata$Batch) < 2){
 ## PERMANOVA
 ############################################################
 
-set.seed(123)
+set.seed(seed)
 
 result <- adonis2(
     distance ~ Batch + Group,

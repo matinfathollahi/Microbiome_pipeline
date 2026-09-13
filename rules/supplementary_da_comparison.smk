@@ -1,5 +1,4 @@
 rule supplementary_da_comparison:
-
     input:
         ancombc2=
             "results/ancombc2/all_results.tsv",

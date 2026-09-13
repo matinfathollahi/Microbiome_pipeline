@@ -1,5 +1,4 @@
 rule taxonomy:
-
     input:
         repseq="results/qiime2/dada2/representative_sequences.qza",
         classifier=config["taxonomy"]["classifier"]

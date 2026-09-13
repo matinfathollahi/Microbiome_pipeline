@@ -1,7 +1,5 @@
 rule batch_before_after_diagnostics:
-
     input:
-
         before=
             "results/batch_effect/feature_table_clr.tsv",
 
@@ -12,7 +10,6 @@ rule batch_before_after_diagnostics:
             "results/export/metadata/sample_metadata.tsv"
 
     output:
-
         summary=
             "results/batch_effect/diagnostics/summary/batch_diagnostics_summary.tsv",
 
@@ -47,7 +44,6 @@ rule batch_before_after_diagnostics:
             "results/batch_effect/diagnostics/after/variance_partition/variance_partition.tsv"
 
     params:
-
         batch=
             config[
                 "batch_correction"
@@ -82,23 +78,18 @@ rule batch_before_after_diagnostics:
             "results/batch_effect/diagnostics"
 
     log:
-
         "logs/batch_effect/before_after_diagnostics.log"
 
     benchmark:
-
         "benchmark/batch_effect/before_after_diagnostics.txt"
 
     conda:
-
         "envs/r_batch.yaml"
 
     shell:
-
         r"""
         mkdir -p {params.outdir}
         mkdir -p $(dirname {log})
-        mkdir -p $(dirname {benchmark})
 
         set -euo pipefail
 

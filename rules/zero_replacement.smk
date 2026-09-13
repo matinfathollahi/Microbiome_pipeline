@@ -1,5 +1,4 @@
 rule zero_replacement:
-
     input:
         "results/filtering/feature_table_filtered.tsv"
 
