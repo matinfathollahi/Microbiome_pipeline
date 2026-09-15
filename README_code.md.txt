@@ -15,6 +15,13 @@ snakemake --version
 ##################################################
 
 
+ فایل دیتابیس از اینجا دانلود کردید
+
+https://data.qiime2.org/classifiers/sklearn-1.4.2/silva/silva-138-99-nb-classifier.qza
+
+بعد در پوشه دیتابیس میزارسد و اسمش رو تغییر میدید به
+
+silva-138-99-classifier.qza
 
 
 
