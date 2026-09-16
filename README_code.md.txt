@@ -4,6 +4,10 @@ wget https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge
 
 bash Miniforge3-Linux-x86_64.sh
 
+source ~/.bashrc
+
+conda --version
+
 #####################################################
 
 conda create -n snakemake -c conda-forge -c bioconda snakemake
