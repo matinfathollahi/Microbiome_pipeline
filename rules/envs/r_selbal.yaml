@@ -6,10 +6,19 @@ channels:
 
 dependencies:
   - r-base=4.5.2
-  - r-remotes
-  - r-devtools
-  - r-zcompositions
+
+  # Selbal CRAN dependencies
+  - r-compositions
+  - r-doparallel
+  - r-foreach
   - r-ggplot2
+  - r-gridextra
+  - r-gtable
+  - r-plyr
   - r-proc
-  - git
-  - zlib
+  - r-qdapregex
+  - r-zcompositions
+
+  # Selbal Bioconductor dependencies
+  - bioconductor-cma
+  - bioconductor-phyloseq
