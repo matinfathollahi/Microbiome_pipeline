@@ -249,25 +249,16 @@ for _, sample in samples.iterrows():
         )
 
 
-    # Forward read
+    # Paired-end manifest: one row per sample
 
     rows.append({
         "sample-id": sample_id,
-        "absolute-filepath": str(
+        "forward-absolute-filepath": str(
             r1.resolve()
         ),
-        "direction": "forward"
-    })
-
-
-    # Reverse read
-
-    rows.append({
-        "sample-id": sample_id,
-        "absolute-filepath": str(
+        "reverse-absolute-filepath": str(
             r2.resolve()
-        ),
-        "direction": "reverse"
+        )
     })
 
 
@@ -277,10 +268,11 @@ for _, sample in samples.iterrows():
 
 manifest = pd.DataFrame(
     rows,
+
     columns=[
         "sample-id",
-        "absolute-filepath",
-        "direction"
+        "forward-absolute-filepath",
+        "reverse-absolute-filepath"
     ]
 )
 
@@ -296,6 +288,7 @@ output_file.parent.mkdir(
 
 manifest.to_csv(
     output_file,
+    sep="\t",
     index=False
 )
 

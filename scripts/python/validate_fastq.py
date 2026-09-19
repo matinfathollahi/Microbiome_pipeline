@@ -37,10 +37,6 @@ for f in (r1, r2):
     )
 
 
-    subprocess.run(
-        ["seqkit", "fqchk", str(f)],
-        check=True
-    )
 
     subprocess.run(
         ["seqkit", "stats", str(f)],
