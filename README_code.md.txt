@@ -28,6 +28,61 @@ https://data.qiime2.org/classifiers/sklearn-1.4.2/silva/silva-138-99-nb-classifi
 silva-138-99-classifier.qza
 
 
+#######################################################
+اگر Ubuntu/Debian دارید، ابتدا روش بستهٔ رسمی/مناسب سیستم را بررسی کنید. ساده‌ترین روش معمولاً دانلود نسخهٔ باینری از NCBI است:
+
+cd ~/Downloads
+wget https://ftp.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz
+tar -xzf sratoolkit.current-ubuntu64.tar.gz
+
+سپس وارد پوشه شوید:
+
+cd sratoolkit.*
+
+و مسیر bin را به PATH اضافه کنید:
+
+echo 'export PATH="$PATH:$HOME/Downloads/'"$(basename "$PWD")"'/bin"' >> ~/.bashrc
+source ~/.bashrc
+
+برای اطمینان:
+
+fasterq-dump --version
+
+یا:
+
+prefetch --version
+2. تنظیم SRA Toolkit
+
+برای دانلود داده‌ها بهتر است ابتدا تنظیمات را انجام دهید:
+
+vdb-config --interactive
+
+در محیط بازشده می‌توانید محل ذخیرهٔ داده‌ها را تعیین کنید. مثلاً:
+
+/home/username/sra
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
