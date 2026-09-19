@@ -6,7 +6,7 @@ channels:
   - conda-forge
 
 dependencies:
+  - python
   - sra-tools
   - pigz
-
 
