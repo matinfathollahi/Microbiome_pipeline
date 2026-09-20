@@ -370,13 +370,9 @@ metadata <- metadata %>%
 # Standard analysis columns
 ############################################################
 
-metadata$Study <- metadata[
-    [study_column]
-]
+metadata$Study <- metadata[[study_column]]
 
-metadata$Group <- metadata[
-    [group_column]
-]
+metadata$Group <- metadata[[group_column]]
 
 
 ############################################################

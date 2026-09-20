@@ -130,7 +130,7 @@ mkdir -p "$(dirname "$TABLE")"
 mkdir -p "$(dirname "$REPSEQ")"
 mkdir -p "$(dirname "$STATS")"
 
-BASE_STATS="$(dirname "$STATS")/base_transition_stats.qza"
+
 
 ########################################
 # Print configuration
@@ -175,8 +175,7 @@ qiime dada2 denoise-paired \
     --p-n-threads "$THREADS" \
     --o-table "$TABLE" \
     --o-representative-sequences "$REPSEQ" \
-    --o-denoising-stats "$STATS" \
-    --o-base-transition-stats "$BASE_STATS"
+    --o-denoising-stats "$STATS" 
 
 ########################################
 # Finished

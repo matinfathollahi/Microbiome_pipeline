@@ -27,7 +27,7 @@ command -v qiime >/dev/null 2>&1 || {
     exit 1
 }
 
-mkdir -p "$OUTDIR"
+rm -rf "$OUTDIR"
 
 qiime diversity core-metrics-phylogenetic \
     --i-table "$TABLE" \

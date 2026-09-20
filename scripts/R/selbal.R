@@ -989,9 +989,15 @@ for (
     # Apply SAME zero-replacement method to held-out Study
     ########################################################
 
+    x_test_balance <- x_test[
+        ,
+        selected_balance_taxa,
+        drop = FALSE
+    ]
+
     x_test_log <- log(
         cmultRepl2_fun(
-            x_test,
+            x_test_balance,
             zero.rep =
                 zero_replacement
         )

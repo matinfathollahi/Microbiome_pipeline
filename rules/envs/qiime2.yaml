@@ -1,23 +1,10 @@
-# Minimal QIIME 2 environment for the active commands in this workflow.
-# Conda will resolve transitive dependencies automatically.
 channels:
-  - https://packages.qiime2.org/qiime2/2026.7/qiime2/released
+  - https://packages.qiime2.org/qiime2/2024.5/amplicon/released
   - conda-forge
   - bioconda
 
 dependencies:
-  - qiime2=2026.7.0
-  - q2cli=2026.7.0
-  - q2-types=2026.7.0
-  - q2-alignment=2026.7.0
-  - q2-demux=2026.7.0
-  - q2-dada2=2026.7.0
-  - q2-feature-table=2026.7.0
-  - q2-feature-classifier=2026.7.0
-  - q2-phylogeny=2026.7.0
-  - q2-diversity=2026.7.0
-  - q2-diversity-lib=2026.7.0
-  - q2-emperor=2026.7.0
-  - q2-metadata=2026.7.0
-  - bibtexparser=1.4.4
-  - statsmodels=0.14.6
+  - qiime2-amplicon
+  - mafft=7.520
+  - bibtexparser=1.4.1
+  - statsmodels=0.14.2

@@ -22,7 +22,7 @@ echo "Downloading ${ACCESSION}..."
 prefetch \
     "$ACCESSION" \
     --output-directory "$OUTDIR" \
-    --max-size u
+
 
 SRA_FILE="${OUTDIR}/${ACCESSION}/${ACCESSION}.sra"
 
