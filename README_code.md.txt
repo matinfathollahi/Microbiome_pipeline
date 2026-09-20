@@ -8,7 +8,7 @@ source ~/.bashrc
 
 conda --version
 
-#####################################################
+#################################################################################
 
 conda create -n snakemake -c conda-forge -c bioconda snakemake
 
@@ -16,7 +16,7 @@ conda activate snakemake
 
 snakemake --version
 
-##################################################
+#################################################################################################
 
 
  فایل دیتابیس از اینجا دانلود کردید
@@ -28,7 +28,7 @@ https://data.qiime2.org/classifiers/sklearn-1.4.2/silva/silva-138-99-nb-classifi
 silva-138-99-classifier.qza
 
 
-#######################################################
+###################################################################################################
 اگر Ubuntu/Debian دارید، ابتدا روش بستهٔ رسمی/مناسب سیستم را بررسی کنید. ساده‌ترین روش معمولاً دانلود نسخهٔ باینری از NCBI است:
 
 cd ~/Downloads
@@ -51,20 +51,54 @@ fasterq-dump --version
 یا:
 
 prefetch --version
-2. تنظیم SRA Toolkit
 
-برای دانلود داده‌ها بهتر است ابتدا تنظیمات را انجام دهید:
 
-vdb-config --interactive
-
-در محیط بازشده می‌توانید محل ذخیرهٔ داده‌ها را تعیین کنید. مثلاً:
-
-/home/username/sra
+##############################################################################
 
 
 
+1. نصب pigz
+conda install -c conda-forge pigz -y
+2. بررسی نصب
+pigz --version
 
 
+
+##################################
+## 2. Install Dependencies
+
+``` bash
+sudo apt update
+sudo apt install -y wget curl git unzip build-essential python3 python3-pip
+```
+############################################################################################
+
+
+
+
+## 8. Validate Before Run
+
+``` bash
+snakemake --use-conda --conda-frontend mamba --cores 1 -n
+```
+
+------------------------------------------------------------------------
+
+## 9. Run Pipeline
+
+Full:
+
+``` bash
+snakemake --use-conda --conda-frontend mamba --cores all
+```
+
+Resume:
+
+``` bash
+snakemake --use-conda --conda-frontend mamba --cores all --rerun-incomplete
+```
+
+#################################################################################################
 
 
 
