@@ -61,8 +61,9 @@ prefetch --version
 conda install -c conda-forge pigz -y
 2. بررسی نصب
 pigz --version
-
-
+#########################
+sudo apt update
+sudo apt install -y pigz
 
 ##################################
 ## 2. Install Dependencies
