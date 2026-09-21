@@ -288,6 +288,35 @@ if (nrow(counts_matrix) == 0) {
 
 
 ############################################################
+# Remove samples with zero total counts
+############################################################
+
+sample_keep <- colSums(
+    counts_matrix
+) > 0
+
+if (sum(sample_keep) < 4) {
+    stop(
+        paste(
+            "Too few samples with non-zero counts in",
+            study
+        )
+    )
+}
+
+counts_matrix <- counts_matrix[
+    ,
+    sample_keep,
+    drop = FALSE
+]
+
+metadata <- metadata[
+    colnames(counts_matrix),
+    ,
+    drop = FALSE
+]
+
+############################################################
 # Group coding
 ############################################################
 
@@ -319,7 +348,9 @@ dds <- DESeqDataSetFromMatrix(
 
 dds <- DESeq(
     dds,
-    quiet = TRUE
+    quiet = TRUE,
+    sfType = "poscounts",
+    fitType = "mean"
 )
 
 

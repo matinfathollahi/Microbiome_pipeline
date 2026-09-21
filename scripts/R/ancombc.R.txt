@@ -254,8 +254,8 @@ if (
 ) {
 
     stop(
-        "ANCOM-BC2 requires count data; "
-        "non-integer values were detected."
+        "ANCOM-BC2 requires count data; non-integer values were detected."
+
     )
 }
 
@@ -404,8 +404,8 @@ if (
     warning(
         paste0(
             length(metadata_missing_from_counts),
-            " metadata sample(s) are absent from the count table "
-            "and will be excluded from ANCOM-BC2: ",
+            "metadata sample(s) are absent from the count table and will be excluded from ANCOM-BC2: ",
+            
             paste(
                 head(
                     metadata_missing_from_counts,

@@ -230,6 +230,19 @@ storage.mode(
 ) <- "numeric"
 
 
+if (any(!is.finite(counts))) {
+    stop(
+        "Feature table contains NA, NaN, or Inf values."
+    )
+}
+
+if (any(counts < 0)) {
+    stop(
+        "Feature table contains negative values."
+    )
+}
+
+
 if (
     nrow(counts) == 0 ||
     ncol(counts) == 0
@@ -240,15 +253,7 @@ if (
 }
 
 
-if (
-    any(
-        !is.finite(counts)
-    )
-) {
-    stop(
-        "Feature table contains non-finite values."
-    )
-}
+
 
 
 if (
@@ -985,39 +990,123 @@ for (
     }
 
 
+
+
+
+
+
+
+
+
     ########################################################
     # Apply SAME zero-replacement method to held-out Study
     ########################################################
 
-    x_test_balance <- x_test[
+x_test_balance <- x_test[
+    ,
+    selected_balance_taxa,
+    drop = FALSE
+]
+
+########################################################
+# Validate held-out data before zero replacement
+########################################################
+
+x_test_balance <- as.matrix(
+    x_test_balance
+)
+
+x_test_balance[
+    !is.finite(x_test_balance)
+] <- 0
+
+x_test_balance[
+    x_test_balance < 0
+] <- 0
+
+########################################################
+# Held-out studies can be extremely sparse.
+# Keep ALL selected balance taxa because bal.value()
+# requires the same taxa as the trained balance.
+########################################################
+
+if (
+    ncol(x_test_balance) < 2
+) {
+    message(
+        "Skipping held-out study due to insufficient balance taxa: ",
+        held_out_study
+    )
+    next
+}
+
+if (
+    any(
+        rowSums(x_test_balance) <= 0
+    )
+) {
+    message(
+        "Skipping zero-total samples in held-out study: ",
+        held_out_study
+    )
+
+    keep_samples <-
+        rowSums(
+            x_test_balance
+        ) > 0
+
+    x_test_balance <- x_test_balance[
+        keep_samples,
         ,
-        selected_balance_taxa,
         drop = FALSE
     ]
 
-    x_test_log <- log(
-        cmultRepl2_fun(
-            x_test_balance,
-            zero.rep =
-                zero_replacement
+    x_test <- x_test[
+        keep_samples,
+        ,
+        drop = FALSE
+    ]
+
+    y_test <- y_test[
+        keep_samples
+    ]
+}
+
+if (
+    nrow(x_test_balance) < 2
+) {
+    message(
+        "Skipping held-out study after zero-total filtering: ",
+        held_out_study
+    )
+    next
+}
+
+########################################################
+# Apply the same zero-replacement setting to held-out data
+########################################################
+
+x_test_repl <- cmultRepl2_fun(
+    x_test_balance,
+    zero.rep = zero_replacement
+)
+
+x_test_log <- log(
+    x_test_repl
+)
+
+if (
+    any(
+        !is.finite(
+            x_test_log
         )
     )
-
-
-    if (
-        any(
-            !is.finite(
-                x_test_log
-            )
-        )
-    ) {
-
-        stop(
-            "Non-finite transformed values in held-out study: ",
-            held_out_study
-        )
-    }
-
+) {
+    stop(
+        "Non-finite transformed values in held-out study: ",
+        held_out_study
+    )
+}
 
     ########################################################
     # Compute held-out balance
@@ -1040,7 +1129,7 @@ for (
 
         predict(
 
-            fit$fit,
+            fit$glm,
 
             newdata =
                 data.frame(

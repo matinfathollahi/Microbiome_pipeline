@@ -209,15 +209,15 @@ class MicrobiomeCLRPreprocessor:
 
         total = values.sum()
 
-        if (
-            not np.isfinite(total)
-            or total <= 0
-        ):
-
+        if not np.isfinite(total):
             raise ValueError(
-                "A sample contains zero total abundance "
+                "A sample contains non-finite total abundance "
                 "after feature filtering."
             )
+
+        if total <= 0:
+            values = values + 1.0
+            total = values.sum()
 
         ####################################################
         # Convert counts to composition
