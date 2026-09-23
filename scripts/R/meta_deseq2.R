@@ -288,19 +288,33 @@ if (nrow(counts_matrix) == 0) {
 
 
 ############################################################
-# Remove samples with zero total counts
+# Remove samples with zero total counts after feature filtering
 ############################################################
 
-sample_keep <- colSums(
+sample_totals <- colSums(
     counts_matrix
-) > 0
+)
 
-if (sum(sample_keep) < 4) {
-    stop(
+sample_keep <- sample_totals > 0
+
+zero_samples <- names(
+    sample_totals
+)[!sample_keep]
+
+if (length(zero_samples) > 0) {
+
+    cat(
+        "Zero-total samples removed after feature filtering:",
+        length(zero_samples),
+        "\n"
+    )
+
+    cat(
         paste(
-            "Too few samples with non-zero counts in",
-            study
-        )
+            zero_samples,
+            collapse = ", "
+        ),
+        "\n"
     )
 }
 
@@ -310,11 +324,15 @@ counts_matrix <- counts_matrix[
     drop = FALSE
 ]
 
-metadata <- metadata[
-    colnames(counts_matrix),
-    ,
-    drop = FALSE
-]
+if (ncol(counts_matrix) < 4) {
+    stop(
+        paste(
+            "Too few samples with non-zero counts in",
+            study,
+            "after feature filtering"
+        )
+    )
+}
 
 ############################################################
 # Group coding

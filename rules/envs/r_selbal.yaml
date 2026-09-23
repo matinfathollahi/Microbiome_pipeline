@@ -6,8 +6,6 @@ channels:
 
 dependencies:
   - r-base=4.5.2
-
-  # Selbal CRAN dependencies
   - r-compositions
   - r-doparallel
   - r-foreach
@@ -18,7 +16,5 @@ dependencies:
   - r-proc
   - r-qdapregex
   - r-zcompositions
-
-  # Selbal Bioconductor dependencies
   - bioconductor-cma
-  - bioconductor-phyloseq
+  - bioconductor-phyloseqor-phyloseq

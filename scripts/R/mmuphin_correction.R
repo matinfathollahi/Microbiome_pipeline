@@ -172,10 +172,7 @@ if (
     )
 ) {
 
-    stop(
-        "Duplicate sample IDs detected "
-        "in feature table."
-    )
+    stop("Duplicate sample IDs detected in feature table.")
 }
 
 
@@ -309,8 +306,7 @@ if (
 ) {
 
     stop(
-        "Duplicate SampleID values "
-        "detected in metadata."
+        "Duplicate SampleID values detected in metadata."
     )
 }
 
@@ -413,10 +409,7 @@ if (
     )
 ) {
 
-    stop(
-        "Biological variable contains "
-        "missing/blank values."
-    )
+    stop("Biological variable contains missing/blank values.")
 }
 
 
@@ -452,10 +445,7 @@ if (
     ) < 2
 ) {
 
-    stop(
-        "Biological variable requires "
-        "at least two levels."
-    )
+    stop("Biological variable requires at least two levels.")
 }
 
 
@@ -464,10 +454,7 @@ if (
     group_variable
 ) {
 
-    stop(
-        "Batch and biological variables "
-        "cannot be identical."
-    )
+    stop("Batch and biological variables cannot be identical.")
 }
 
 
@@ -829,16 +816,12 @@ summary_table <- data.frame(
 
     N_Batches =
         nlevels(
-            metadata[
-                [batch_variable]
-            ]
+            metadata[[batch_variable]]
         ),
 
     N_Biological_Groups =
         nlevels(
-            metadata[
-                [group_variable]
-            ]
+            metadata[[group_variable]]
         ),
 
     Zeros_Before =

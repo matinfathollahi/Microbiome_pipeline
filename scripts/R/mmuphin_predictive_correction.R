@@ -164,10 +164,7 @@ if (
     )
 ) {
 
-    stop(
-        "Duplicate sample IDs detected "
-        "in feature table."
-    )
+    stop("Duplicate sample IDs detected in feature table.")
 }
 
 
@@ -292,10 +289,7 @@ if (
     )
 ) {
 
-    stop(
-        "Duplicate SampleID values "
-        "detected in metadata."
-    )
+    stop("Duplicate SampleID values detected in metadata.")
 }
 
 
@@ -744,9 +738,7 @@ summary_table <- data.frame(
 
     N_Batches =
         nlevels(
-            metadata[
-                [batch_variable]
-            ]
+            metadata[[batch_variable]]
         ),
 
 

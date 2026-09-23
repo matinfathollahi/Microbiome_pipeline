@@ -278,6 +278,68 @@ def main():
         study_samples
     ] = numeric
 
+
+############################################################
+    # Remove samples with zero total counts
+    ############################################################
+
+    sample_totals = numeric.sum(axis=0)
+
+    zero_samples = [
+        sample
+        for sample in study_samples
+        if sample_totals[sample] == 0
+    ]
+
+    if zero_samples:
+
+        study_samples = [
+            sample
+            for sample in study_samples
+            if sample not in zero_samples
+        ]
+
+        if not study_samples:
+            raise ValueError(
+                f"All samples for study '{study_value}' "
+                "have zero total counts."
+            )
+
+        study_metadata = (
+            study_metadata[
+                study_metadata[
+                    args.sample_column
+                ].isin(study_samples)
+            ]
+            .copy()
+        )
+
+        study_table = table[
+            ["FeatureID"] + study_samples
+        ].copy()
+
+        numeric = (
+            study_table[study_samples]
+            .apply(
+                pd.to_numeric,
+                errors="coerce"
+            )
+        )
+
+        study_table[
+            study_samples
+        ] = numeric
+
+        print(
+            f"Zero-total samples removed: "
+            f"{len(zero_samples)}"
+        )
+
+        print(
+            "Removed samples: "
+            + ", ".join(zero_samples)
+        )
+
     Path(
         args.output_table
     ).parent.mkdir(
