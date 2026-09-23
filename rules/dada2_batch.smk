@@ -1,14 +1,62 @@
+import os
+import json
+
+
 def dada2_batch_param(wildcards, key):
-    overrides = config["dada2"].get("batch_overrides", {}) or {}
-    batch_overrides = overrides.get(wildcards.batch, {}) or {}
-    return batch_overrides.get(key, config["dada2"][key])
+
+    #################################
+    # 1) Optimized parameters
+    #################################
+
+    optimized_file = (
+        f"results/optimization/"
+        f"{wildcards.batch}/best_parameters.json"
+    )
 
 
+    if os.path.exists(optimized_file):
+
+        with open(optimized_file) as f:
+            params = json.load(f)
+
+        if key in params:
+            return params[key]
+
+
+    #################################
+    # 2) Manual batch override
+    #################################
+
+    overrides = config["dada2"].get(
+        "batch_overrides",
+        {}
+    ) or {}
+
+
+    batch_overrides = overrides.get(
+        wildcards.batch,
+        {}
+    ) or {}
+
+
+    if key in batch_overrides:
+        return batch_overrides[key]
+
+
+    #################################
+    # 3) Global manual parameters
+    #################################
+
+    return config["dada2"]["manual"][key]
 rule dada2_batch:
+
     input:
         preflight="results/qc/preflight/preflight_validation.json",
-        demux="results/qiime2/import/{batch}/demux.qza"
 
+        demux="results/qiime2/import/{batch}/demux.qza",
+
+        optimized_params=
+            "results/optimization/{batch}/best_parameters.json"
     output:
         table="results/qiime2/dada2/batches/{batch}/feature_table.qza",
         repseq="results/qiime2/dada2/batches/{batch}/representative_sequences.qza",

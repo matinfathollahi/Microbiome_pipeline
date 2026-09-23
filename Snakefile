@@ -1,6 +1,7 @@
 
 configfile: "config/config.yaml"
 
+
 META_ENABLED = bool(
     config.get("meta_analysis", {}).get("enabled", True)
 )
@@ -182,6 +183,7 @@ include: "rules/validate_fastq.smk"
 include: "rules/manifest.smk"
 
 include: "rules/qiime2_import.smk"
+include: "rules/optimization.smk"
 include: "rules/demux_summary.smk"
 include: "rules/denoising_stats.smk"
 include: "rules/permdisp.smk"

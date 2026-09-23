@@ -60,37 +60,106 @@ compress:
 
 dada2:
 
-  trim_left_f: 17
+  mode: auto
 
-  trim_left_r: 21
 
-  trunc_len_f: 200
+  #################################
+  # Manual parameters
+  # used when mode = manual
+  #################################
 
-  trunc_len_r: 160
+  manual:
 
-  max_ee_f: 2
+    trim_left_f: 17
 
-  max_ee_r: 2
+    trim_left_r: 21
 
-  trunc_q: 2
+    trunc_len_f: 200
 
-  chimera_method: consensus
+    trunc_len_r: 160
 
-  pooling: independent
+    max_ee_f: 2
 
-  min_overlap: 20
+    max_ee_r: 2
+
+    trunc_q: 2
+
+    chimera_method: consensus
+
+    pooling: independent
+
+    min_overlap: 20
+
+
+  #################################
+  # Batch specific parameters
+  #################################
+
+  batch_overrides: {}
 
   threads: 8
 
-  # Per-DenoiseBatch overrides. Any parameter omitted for a batch
-  # falls back to the global values above. Useful when studies differ
-  # in read length / quality profile and need different trim/trunc values.
-  # Example:
-  #   batch_overrides:
-  #     PRJEB39064:
-  #       trunc_len_f: 230
-  #       trunc_len_r: 190
-  batch_overrides: {}
+
+#########################################
+# DADA2 Optimization
+#########################################
+
+dada2_optimization:
+
+  # حالت پیش فرض
+  # true  = پیدا کردن خودکار پارامترها
+  # false = استفاده از پارامتر دستی
+  enabled: true
+
+
+  # تنظیمات Bayesian Optimization
+  optimizer:
+
+    method: bayesian
+
+    trials: 30
+
+    seed: 2026
+
+
+  #################################
+  # فضای جستجوی Bayesian
+  #################################
+
+  search_space:
+
+    trim_left_f:
+      min: 0
+      max: 30
+
+    trim_left_r:
+      min: 0
+      max: 30
+
+
+    trunc_len_f:
+      min: 200
+      max: 260
+
+
+    trunc_len_r:
+      min: 150
+      max: 220
+
+
+    max_ee_f:
+      values:
+        - 1
+        - 2
+        - 3
+
+
+    max_ee_r:
+      values:
+        - 1
+        - 2
+        - 3
+
 
 
 #########################################
