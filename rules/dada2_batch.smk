@@ -8,10 +8,7 @@ def dada2_batch_param(wildcards, key):
     # 1) Optimized parameters
     #################################
 
-    optimized_file = (
-        f"results/optimization/"
-        f"{wildcards.batch}/best_parameters.json"
-    )
+    optimized_file = f"results/optimization/{wildcards.batch}/best_parameters.json"
 
 
     if os.path.exists(optimized_file):
@@ -52,15 +49,12 @@ rule dada2_batch:
 
     input:
         preflight="results/qc/preflight/preflight_validation.json",
-
         demux="results/qiime2/import/{batch}/demux.qza",
-
-        optimized_params=
-            "results/optimization/{batch}/best_parameters.json"
+        optimized_params="results/optimization/{batch}/best_parameters.json",
     output:
         table="results/qiime2/dada2/batches/{batch}/feature_table.qza",
         repseq="results/qiime2/dada2/batches/{batch}/representative_sequences.qza",
-        stats="results/qiime2/dada2/batches/{batch}/denoising_stats.qza"
+        stats="results/qiime2/dada2/batches/{batch}/denoising_stats.qza",
 
     params:
         trim_left_f=lambda wc: dada2_batch_param(wc, "trim_left_f"),
@@ -75,7 +69,7 @@ rule dada2_batch:
         min_overlap=lambda wc: dada2_batch_param(wc, "min_overlap")
 
     log:
-        "logs/qiime2/dada2/{batch}.log"
+        "logs/qiime2/dada2/{batch}.log",
 
     benchmark:
         "benchmark/qiime2/dada2/{batch}.txt"
