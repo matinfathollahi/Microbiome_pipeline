@@ -1,13 +1,15 @@
 name: optimization
 
 channels:
+  - qiime2/label/r2024.10
   - conda-forge
+  - bioconda
 
 dependencies:
-
-  - python=3.11
+  - python=3.10
+  - qiime2
   - pip
-
+  - setuptools<81
   - pip:
       - optuna
       - pyyaml

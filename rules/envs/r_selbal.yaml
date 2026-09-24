@@ -17,4 +17,4 @@ dependencies:
   - r-qdapregex
   - r-zcompositions
   - bioconductor-cma
- - bioconductor-phyloseq
+  - bioconductor-phyloseq

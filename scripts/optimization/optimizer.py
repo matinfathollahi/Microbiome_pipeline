@@ -12,7 +12,7 @@ from scoring import calculate_score
 
 demux = snakemake.input.demux
 
-study = snakemake.wildcards.study
+# optimization is batch-only
 
 batch = snakemake.wildcards.batch
 
@@ -88,7 +88,7 @@ def objective(trial):
 
         demux=demux,
 
-        output_dir=f"results/qiime2/optimization/{study}/{batch}/trial_{trial.number}",
+        output_dir=f"results/qiime2/optimization/{batch}/trial_{trial.number}",
 
         trim_left_f=params["trim_left_f"],
 
@@ -102,13 +102,7 @@ def objective(trial):
 
         max_ee_r=params["max_ee_r"],
 
-        trunc_q=2,
 
-        chimera_method="consensus",
-
-        pooling="independent",
-
-        min_overlap=20
     ) 
 
 
